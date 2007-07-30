@@ -12,16 +12,40 @@
  */
 package com.dicksoft.ocr;
 
+import java.io.IOException;
+
+import com.dicksoft.ocr.net.HttpUtil;
+
 /**
  * @author <a href="mailto:ryo.away@gmail.com">Richard Taylor</a>
  */
 public class Temp {
+    private static final String TOTAL_GAME_PREFIX = "games&nbsp;1 to 100 of ";
+    private static final int TOTAL_GAME_MAX_DIGITS = 30;
+    private static final int NUM_GAMES_PER_PAGE = 100;
 
     /**
      * @param args
      */
     public static void main(String[] args) {
-        
-    }
+        String result = null;
+        try {
+            result =
+                    HttpUtil
+                            .fetchText("http://ocremix.org/games/?&offset=0&limit="
+                                    + NUM_GAMES_PER_PAGE + "&sort=");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // //
+        int totalGames =
+                Integer.parseInt(result.substring(
+                        result.indexOf(TOTAL_GAME_PREFIX)
+                                + TOTAL_GAME_PREFIX.length(),
+                        TOTAL_GAME_MAX_DIGITS).split(" ")[0]);
+        int numPages = (int) Math.ceil(totalGames / NUM_GAMES_PER_PAGE);
+        for (int i = 2; i <= numPages; i++) {
 
+        }
+    }
 }
