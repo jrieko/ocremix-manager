@@ -10,16 +10,21 @@
  * (for example /usr/src/linux/COPYING); if not, write to the Free
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
-package com.dicksoft.ocr.net;
+package com.dicksoft.ocr.util;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.net.URL;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * @author <a href="mailto:ryo.away@gmail.com">Richard Taylor</a>
  */
 public final class HttpUtil {
+    private static final Log LOG = LogFactory.getLog(HttpUtil.class);
+
     private HttpUtil() {
     }
 
@@ -30,9 +35,11 @@ public final class HttpUtil {
      *            the URL of the text to read
      * @return the text
      * @throws IOException
-     *             if url is malformed, or problem reading the stream
+     *             if the URL is malformed, or problem reading the stream
      */
     public static String fetchText(String url) throws IOException {
+        if (LOG.isDebugEnabled())
+            LOG.debug("Http fetch: " + url);
         StringBuffer result = new StringBuffer();
         URL urlReal = null;
         urlReal = new URL(url);
