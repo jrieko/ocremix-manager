@@ -2,6 +2,6 @@
 <classpath>
 	<classpathentry kind="src" path="src/main"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/usr/share/eclipse/plugins/org.apache.commons.logging_1.0.4.v200706111724.jar"/>
+	<classpathentry kind="lib" path="lib/commons-logging-1.0.4.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
