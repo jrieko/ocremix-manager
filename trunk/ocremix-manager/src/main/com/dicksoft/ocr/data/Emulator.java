@@ -12,6 +12,7 @@
  */
 package com.dicksoft.ocr.data;
 
+import java.io.Serializable;
 import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
@@ -21,7 +22,9 @@ import java.util.Set;
  * @see http://ocremix.org/emulators/
  * @see http://ocremix.org/emulator/id/[id]/
  */
-public class Emulator {
+public class Emulator extends OCRElement implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     public enum Platform {
         DOS("MSDOS", "ocr4_icon_small_pdos.gif"),
         LINUX("Linux", "ocr4_icon_small_plinux.gif"),

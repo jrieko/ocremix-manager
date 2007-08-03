@@ -10,23 +10,13 @@
  * (for example /usr/src/linux/COPYING); if not, write to the Free
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
-package com.dicksoft.ocr.data;
+package com.dicksoft.ocr.xml;
 
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import com.dicksoft.ocr.data.OCRElement;
 
 /**
  * @author <a href="mailto:ryo.away@gmail.com">Richard Taylor</a>
- * @see http://ocremix.org/songs/
- * @see http://ocremix.org/song/id/[id]/
  */
-public class Song extends OCRElement implements Serializable {
-    private static final long serialVersionUID = 7688386478808844299L;
-    protected int id;
-    protected Game game;
-    protected Publisher copyright;
-    protected System system;
-    protected Set<Composer> composers = new HashSet<Composer>();
-    protected Set<Mix> mixes = new HashSet<Mix>();
+public interface Parsable {
+    public <T extends OCRElement> T parse(String xml);
 }

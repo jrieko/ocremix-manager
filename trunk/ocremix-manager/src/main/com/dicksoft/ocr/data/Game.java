@@ -12,6 +12,7 @@
  */
 package com.dicksoft.ocr.data;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,7 +21,8 @@ import java.util.Set;
  * @see http://ocremix.org/games/
  * @see http://ocremix.org/game/[urlName]/
  */
-public class Game {
+public class Game extends OCRElement implements Serializable {
+    private static final long serialVersionUID = -2841719747816951953L;
     protected int id;
     protected String name;
     protected String urlName;

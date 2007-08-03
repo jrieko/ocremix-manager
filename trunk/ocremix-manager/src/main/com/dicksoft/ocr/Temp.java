@@ -12,6 +12,7 @@
  */
 package com.dicksoft.ocr;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -21,6 +22,11 @@ import org.apache.commons.logging.LogFactory;
 
 import sun.security.provider.MD5;
 
+import com.dicksoft.ocr.data.Composer;
+import com.dicksoft.ocr.data.Emulator;
+import com.dicksoft.ocr.data.Root;
+import com.dicksoft.ocr.persistence.Deserializer;
+import com.dicksoft.ocr.persistence.Serializer;
 import com.dicksoft.ocr.util.HttpUtil;
 import com.dicksoft.ocr.util.StringUtil;
 
@@ -38,27 +44,59 @@ public class Temp {
      * @param args
      */
     public static void main(String[] args) {
-        LOG.info("Fetching");
-        String result = null;
-        boolean done = false;
-        for (int i = 1; !done; i++) {
-            try {
-                result =
-                        HttpUtil.fetchText("http://ocremix.org/remix/OCR"
-                                + String.format("%1$05d", i) + "/?style=xml");
-                 System.out.println(result);
-                String game =
-                        StringUtil.getBetween(result,
-                                "<html>\n  <head>\n    <title>ReMix: ", "\n");
-                
-                if (game==null || game.equals(""))
-                    done = true;
-            } catch (IOException e) {
-                e.printStackTrace();
-                return;
-            }
-            done = true;// TODO
+        Root root = new Root();
+        root.addComposer(new Composer(20, "dood", "dood.jpg"));
+        root.addEmulator(new Emulator());
+        try {
+            Serializer.write(root, "temp.dat");
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
+        try {
+            Root newRoot = Deserializer.read("temp.dat");
+            System.out.println(root.getComposers().size());
+            for (Composer comp : newRoot.getComposers()) {
+                System.out.println(comp.getId() + ", " + comp.getName() + ", "
+                        + comp.getImageFile());
+            }
+            System.out.println(root.getEmulators().size());
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        // LOG.info("Fetching");
+        // String result = null;
+        // boolean done = false;
+        // for (int i = 1; !done; i++) {
+        // try {
+        // result =
+        // HttpUtil.fetchText("http://ocremix.org/remix/OCR"
+        // + String.format("%1$05d", i) + "/?style=xml");
+        // // System.out.println(result);
+        // String game =
+        // StringUtil.getBetween(result, "<gamename>",
+        // "</gamename>");
+        //
+        // if (game == null || game.equals("")) {
+        // System.out.println("OCR" + String.format("%1$05d", i));
+        // done = true;
+        // }
+        // } catch (IOException e) {
+        // e.printStackTrace();
+        // return;
+        // }
+        // // done = true;// TODO
+        // }
 
         // ////////////
         // try {

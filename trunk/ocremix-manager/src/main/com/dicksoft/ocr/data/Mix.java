@@ -12,6 +12,7 @@
  */
 package com.dicksoft.ocr.data;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -21,8 +22,9 @@ import java.util.Set;
  * @see http://ocremix.org/remixes/
  * @see http://ocremix.org/remix/[id]/
  */
-public class Mix {
-    protected String id;
+public class Mix extends OCRElement implements Serializable {
+    private static final long serialVersionUID = 5548809044578971054L;
+    protected int id;
     protected String name;
     protected Date postDate;
     protected String filename;

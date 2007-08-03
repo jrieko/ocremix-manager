@@ -12,13 +12,15 @@
  */
 package com.dicksoft.ocr.data;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 /**
  * @author <a href="mailto:ryo.away@gmail.com">Richard Taylor</a>
  */
-public class Root {
+public class Root implements Serializable {
+    private static final long serialVersionUID = -4755428645861211749L;
     protected Set<Composer> composers = new HashSet<Composer>();
     protected Set<Emulator> emulators = new HashSet<Emulator>();
     protected Set<Game> games = new HashSet<Game>();
@@ -26,4 +28,26 @@ public class Root {
     protected Set<Mixer> mixers = new HashSet<Mixer>();
     protected Set<Song> songs = new HashSet<Song>();
     protected Set<System> systems = new HashSet<System>();
+
+    public void addComposer(Composer composer) {
+        this.composers.add(composer);
+    }
+
+    public void addEmulator(Emulator emulator) {
+        this.emulators.add(emulator);
+    }
+
+    /**
+     * @return the composers
+     */
+    public Set<Composer> getComposers() {
+        return this.composers;
+    }
+
+    /**
+     * @return the emulators
+     */
+    public Set<Emulator> getEmulators() {
+        return this.emulators;
+    }
 }
