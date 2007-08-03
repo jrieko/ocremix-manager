@@ -12,6 +12,7 @@
  */
 package com.dicksoft.ocr.data;
 
+import java.io.Serializable;
 import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,7 +21,8 @@ import java.util.Set;
  * @author <a href="mailto:ryo.away@gmail.com">Richard Taylor</a>
  * @see http://ocremix.org/publisher/id/[id]/
  */
-public class Publisher {
+public class Publisher extends OCRElement implements Serializable {
+    private static final long serialVersionUID = 1334763956983751946L;
     protected String name;
     protected int id;
     protected URL url;

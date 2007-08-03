@@ -55,4 +55,41 @@ public final class StringUtil {
 
         return source.substring(aIndex + a.length(), bIndex);
     }
+
+    /**
+     * TODO
+     * 
+     * @param source
+     * @param a
+     * @return
+     */
+    public static String getSuffix(String source, String a) {
+        int aIndex = source.indexOf(a);
+        if (aIndex == -1) {
+            LOG.debug("String a, " + a
+                    + " was not found in the target String, " + source);
+            return null;
+        }
+        return source.substring(aIndex + a.length());
+    }
+
+    public static String getElement(String xml, String tag) {
+        String value = getBetween(xml, "<" + tag + ">", "</" + tag + ">");
+        if (value == null) {
+            value =
+                    getSuffix(getBetween(xml, "<" + tag, "</" + tag + ">"), ">");
+        }
+        return value;
+    }
+
+    public static String getAttribute(String xml, String tag, String name) {
+        String element = getBetween(xml, "<" + tag, "/>");
+        if (element == null) {
+            element = getBetween(xml, "<" + tag, ">");
+        }
+        if (element == null) {
+            return null;
+        }
+        return getBetween(element, name + "=\"", "\"");
+    }
 }

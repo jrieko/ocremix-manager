@@ -12,6 +12,7 @@
  */
 package com.dicksoft.ocr.data;
 
+import java.io.Serializable;
 import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
@@ -21,7 +22,8 @@ import java.util.Set;
  * @see http://ocremix.org/remixers/
  * @see http://ocremix.org/remixer/[urlName]/
  */
-public class Mixer {
+public class Mixer extends OCRElement implements Serializable {
+    private static final long serialVersionUID = 180055796751326196L;
     protected int id;
     protected String name;
     protected String imageFile;
