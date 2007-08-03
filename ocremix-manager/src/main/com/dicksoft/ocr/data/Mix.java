@@ -41,6 +41,7 @@ public class Mix {
     protected Set<Mixer> mixers = new HashSet<Mixer>();
     protected Set<Composer> composers = new HashSet<Composer>();
     protected Publisher copyright;
+    protected System system;
     protected Set<Song> songs = new HashSet<Song>();
     protected ForumTopic forumTopic;
 

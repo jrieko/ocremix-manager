@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram generalizations="true" realizations="true" associations="true" dependencies="false" 
+  nesting-relationships="true">
+  <classifier-display autosize="true" package="true" attributes="true" operations="true" 
+    signature="true" initial-value="false" visibility="true"/>
+  <association-display labels="true" multiplicity="true"/>
+  <class type="java" name="com.dicksoft.ocr.data.Root" project="ocremix-manager" 
+    file="/ocremix-manager/src/main/com/dicksoft/ocr/data/Root.java">
+    <position x="474" y="262" width="-1" height="-1"/>
+    <display autosize="true" package="true" attributes="true" operations="true" signature="true" 
+      initial-value="false" visibility="true"/>
+  </class>
+  <class type="java" name="com.dicksoft.ocr.data.Game" project="ocremix-manager" 
+    file="/ocremix-manager/src/main/com/dicksoft/ocr/data/Game.java">
+    <position x="455" y="719" width="-1" height="-1"/>
+    <display autosize="true" package="true" attributes="true" operations="true" signature="true" 
+      initial-value="false" visibility="true"/>
+  </class>
+  <class type="java" name="com.dicksoft.ocr.data.Emulator" project="ocremix-manager" 
+    file="/ocremix-manager/src/main/com/dicksoft/ocr/data/Emulator.java">
+    <position x="294" y="145" width="-1" height="-1"/>
+    <display autosize="true" package="true" attributes="true" operations="true" signature="true" 
+      initial-value="false" visibility="true"/>
+  </class>
+  <class type="java" name="com.dicksoft.ocr.data.Mix" project="ocremix-manager" 
+    file="/ocremix-manager/src/main/com/dicksoft/ocr/data/Mix.java">
+    <position x="852" y="446" width="-1" height="-1"/>
+    <display autosize="true" package="true" attributes="true" operations="true" signature="true" 
+      initial-value="false" visibility="true"/>
+  </class>
+  <class type="java" name="com.dicksoft.ocr.data.Mixer" project="ocremix-manager" 
+    file="/ocremix-manager/src/main/com/dicksoft/ocr/data/Mixer.java">
+    <position x="179" y="620" width="-1" height="-1"/>
+    <display autosize="true" package="true" attributes="true" operations="true" signature="true" 
+      initial-value="false" visibility="true"/>
+  </class>
+  <class type="java" name="com.dicksoft.ocr.data.Publisher" project="ocremix-manager" 
+    file="/ocremix-manager/src/main/com/dicksoft/ocr/data/Publisher.java">
+    <position x="97" y="341" width="-1" height="-1"/>
+    <display autosize="true" package="true" attributes="true" operations="true" signature="true" 
+      initial-value="false" visibility="true"/>
+  </class>
+  <class type="java" name="com.dicksoft.ocr.data.Song" project="ocremix-manager" 
+    file="/ocremix-manager/src/main/com/dicksoft/ocr/data/Song.java">
+    <position x="583" y="112" width="-1" height="-1"/>
+    <display autosize="true" package="true" attributes="true" operations="true" signature="true" 
+      initial-value="false" visibility="true"/>
+  </class>
+  <class type="java" name="com.dicksoft.ocr.data.System" project="ocremix-manager" 
+    file="/ocremix-manager/src/main/com/dicksoft/ocr/data/System.java">
+    <position x="812" y="754" width="-1" height="-1"/>
+    <display autosize="true" package="true" attributes="true" operations="true" signature="true" 
+      initial-value="false" visibility="true"/>
+  </class>
+  <class type="java" name="com.dicksoft.ocr.data.Composer" project="ocremix-manager" 
+    file="/ocremix-manager/src/main/com/dicksoft/ocr/data/Composer.java">
+    <position x="853" y="88" width="-1" height="-1"/>
+    <display autosize="true" package="true" attributes="true" operations="true" signature="true" 
+      initial-value="false" visibility="true"/>
+  </class>
+  <association>
+    <source name="com.dicksoft.ocr.data.Game" navigable="false">
+      <attribute name="mixes"/>
+      <multiplicity minimum="0" maximum="2147483647"/>
+    </source>
+    <target name="com.dicksoft.ocr.data.Mix" navigable="true"/>
+    <display labels="true" multiplicity="true"/>
+  </association>
+  <association>
+    <source name="com.dicksoft.ocr.data.Mix" navigable="false">
+      <attribute name="copyright"/>
+      <multiplicity minimum="0" maximum="1"/>
+    </source>
+    <target name="com.dicksoft.ocr.data.Publisher" navigable="true"/>
+    <display labels="true" multiplicity="true"/>
+  </association>
+  <association>
+    <source name="com.dicksoft.ocr.data.System" navigable="false">
+      <attribute name="games"/>
+      <multiplicity minimum="0" maximum="2147483647"/>
+    </source>
+    <target name="com.dicksoft.ocr.data.Game" navigable="true"/>
+    <display labels="true" multiplicity="true"/>
+  </association>
+  <association>
+    <source name="com.dicksoft.ocr.data.Root" navigable="false">
+      <attribute name="mixes"/>
+      <multiplicity minimum="0" maximum="2147483647"/>
+    </source>
+    <target name="com.dicksoft.ocr.data.Mix" navigable="true"/>
+    <display labels="true" multiplicity="true"/>
+  </association>
+  <association>
+    <source name="com.dicksoft.ocr.data.Emulator" navigable="false">
+      <attribute name="system"/>
+      <multiplicity minimum="0" maximum="1"/>
+    </source>
+    <target name="com.dicksoft.ocr.data.System" navigable="true"/>
+    <display labels="true" multiplicity="true"/>
+  </association>
+  <association>
+    <source name="com.dicksoft.ocr.data.Song" navigable="false">
+      <attribute name="mixes"/>
+      <multiplicity minimum="0" maximum="2147483647"/>
+    </source>
+    <target name="com.dicksoft.ocr.data.Mix" navigable="true"/>
+    <display labels="true" multiplicity="true"/>
+  </association>
+  <association>
+    <source name="com.dicksoft.ocr.data.Composer" navigable="false">
+      <attribute name="mixes"/>
+      <multiplicity minimum="0" maximum="2147483647"/>
+    </source>
+    <target name="com.dicksoft.ocr.data.Mix" navigable="true"/>
+    <display labels="true" multiplicity="true"/>
+  </association>
+  <association>
+    <source name="com.dicksoft.ocr.data.Composer" navigable="false">
+      <attribute name="songs"/>
+      <multiplicity minimum="0" maximum="2147483647"/>
+    </source>
+    <target name="com.dicksoft.ocr.data.Song" navigable="true"/>
+    <display labels="true" multiplicity="true"/>
+  </association>
+  <association>
+    <source name="com.dicksoft.ocr.data.Root" navigable="false">
+      <attribute name="systems"/>
+      <multiplicity minimum="0" maximum="2147483647"/>
+    </source>
+    <target name="com.dicksoft.ocr.data.System" navigable="true"/>
+    <display labels="true" multiplicity="true"/>
+  </association>
+  <association>
+    <source name="com.dicksoft.ocr.data.Song" navigable="false">
+      <attribute name="game"/>
+      <multiplicity minimum="0" maximum="1"/>
+    </source>
+    <target name="com.dicksoft.ocr.data.Game" navigable="true"/>
+    <display labels="true" multiplicity="true"/>
+  </association>
+  <association>
+    <source name="com.dicksoft.ocr.data.Game" navigable="false">
+      <attribute name="songs"/>
+      <multiplicity minimum="0" maximum="2147483647"/>
+    </source>
+    <target name="com.dicksoft.ocr.data.Song" navigable="true"/>
+    <display labels="true" multiplicity="true"/>
+  </association>
+  <association>
+    <source name="com.dicksoft.ocr.data.Song" navigable="false">
+      <attribute name="system"/>
+      <multiplicity minimum="0" maximum="1"/>
+    </source>
+    <target name="com.dicksoft.ocr.data.System" navigable="true"/>
+    <display labels="true" multiplicity="true"/>
+  </association>
+  <association>
+    <source name="com.dicksoft.ocr.data.System" navigable="false">
+      <attribute name="mixes"/>
+      <multiplicity minimum="0" maximum="2147483647"/>
+    </source>
+    <target name="com.dicksoft.ocr.data.Mix" navigable="true"/>
+    <display labels="true" multiplicity="true"/>
+  </association>
+  <association>
+    <source name="com.dicksoft.ocr.data.Publisher" navigable="false">
+      <attribute name="songs"/>
+      <multiplicity minimum="0" maximum="2147483647"/>
+    </source>
+    <target name="com.dicksoft.ocr.data.Song" navigable="true"/>
+    <display labels="true" multiplicity="true"/>
+  </association>
+  <association>
+    <source name="com.dicksoft.ocr.data.Publisher" navigable="false">
+      <attribute name="remixes"/>
+      <multiplicity minimum="0" maximum="2147483647"/>
+    </source>
+    <target name="com.dicksoft.ocr.data.Mix" navigable="true"/>
+    <display labels="true" multiplicity="true"/>
+  </association>
+  <association>
+    <source name="com.dicksoft.ocr.data.Publisher" navigable="false">
+      <attribute name="emulators"/>
+      <multiplicity minimum="0" maximum="2147483647"/>
+    </source>
+    <target name="com.dicksoft.ocr.data.Emulator" navigable="true"/>
+    <display labels="true" multiplicity="true"/>
+  </association>
+  <association>
+    <source name="com.dicksoft.ocr.data.Song" navigable="false">
+      <attribute name="copyright"/>
+      <multiplicity minimum="0" maximum="1"/>
+    </source>
+    <target name="com.dicksoft.ocr.data.Publisher" navigable="true"/>
+    <display labels="true" multiplicity="true"/>
+  </association>
+  <association>
+    <source name="com.dicksoft.ocr.data.Game" navigable="false">
+      <attribute name="system"/>
+      <multiplicity minimum="0" maximum="1"/>
+    </source>
+    <target name="com.dicksoft.ocr.data.System" navigable="true"/>
+    <display labels="true" multiplicity="true"/>
+  </association>
+  <association>
+    <source name="com.dicksoft.ocr.data.Root" navigable="false">
+      <attribute name="songs"/>
+      <multiplicity minimum="0" maximum="2147483647"/>
+    </source>
+    <target name="com.dicksoft.ocr.data.Song" navigable="true"/>
+    <display labels="true" multiplicity="true"/>
+  </association>
+  <association>
+    <source name="com.dicksoft.ocr.data.Game" navigable="false">
+      <attribute name="copyright"/>
+      <multiplicity minimum="0" maximum="1"/>
+    </source>
+    <target name="com.dicksoft.ocr.data.Publisher" navigable="true"/>
+    <display labels="true" multiplicity="true"/>
+  </association>
+  <association>
+    <source name="com.dicksoft.ocr.data.Root" navigable="false">
+      <attribute name="composers"/>
+      <multiplicity minimum="0" maximum="2147483647"/>
+    </source>
+    <target name="com.dicksoft.ocr.data.Composer" navigable="true"/>
+    <display labels="true" multiplicity="true"/>
+  </association>
+  <association>
+    <source name="com.dicksoft.ocr.data.Publisher" navigable="false">
+      <attribute name="games"/>
+      <multiplicity minimum="0" maximum="2147483647"/>
+    </source>
+    <target name="com.dicksoft.ocr.data.Game" navigable="true"/>
+    <display labels="true" multiplicity="true"/>
+  </association>
+  <association>
+    <source name="com.dicksoft.ocr.data.Composer" navigable="false">
+      <attribute name="games"/>
+      <multiplicity minimum="0" maximum="2147483647"/>
+    </source>
+    <target name="com.dicksoft.ocr.data.Game" navigable="true"/>
+    <display labels="true" multiplicity="true"/>
+  </association>
+  <association>
+    <source name="com.dicksoft.ocr.data.Root" navigable="false">
+      <attribute name="games"/>
+      <multiplicity minimum="0" maximum="2147483647"/>
+    </source>
+    <target name="com.dicksoft.ocr.data.Game" navigable="true"/>
+    <display labels="true" multiplicity="true"/>
+  </association>
+  <association>
+    <source name="com.dicksoft.ocr.data.System" navigable="false">
+      <attribute name="copyright"/>
+      <multiplicity minimum="0" maximum="1"/>
+    </source>
+    <target name="com.dicksoft.ocr.data.Publisher" navigable="true"/>
+    <display labels="true" multiplicity="true"/>
+  </association>
+  <association>
+    <source name="com.dicksoft.ocr.data.Game" navigable="false">
+      <attribute name="composers"/>
+      <multiplicity minimum="0" maximum="2147483647"/>
+    </source>
+    <target name="com.dicksoft.ocr.data.Composer" navigable="true"/>
+    <display labels="true" multiplicity="true"/>
+  </association>
+  <association>
+    <source name="com.dicksoft.ocr.data.Mix" navigable="false">
+      <attribute name="composers"/>
+      <multiplicity minimum="0" maximum="2147483647"/>
+    </source>
+    <target name="com.dicksoft.ocr.data.Composer" navigable="true"/>
+    <display labels="true" multiplicity="true"/>
+  </association>
+  <association>
+    <source name="com.dicksoft.ocr.data.Publisher" navigable="false">
+      <attribute name="systems"/>
+      <multiplicity minimum="0" maximum="2147483647"/>
+    </source>
+    <target name="com.dicksoft.ocr.data.System" navigable="true"/>
+    <display labels="true" multiplicity="true"/>
+  </association>
+  <association>
+    <source name="com.dicksoft.ocr.data.Mix" navigable="false">
+      <attribute name="game"/>
+      <multiplicity minimum="0" maximum="1"/>
+    </source>
+    <target name="com.dicksoft.ocr.data.Game" navigable="true"/>
+    <display labels="true" multiplicity="true"/>
+  </association>
+  <association>
+    <source name="com.dicksoft.ocr.data.System" navigable="false">
+      <attribute name="songs"/>
+      <multiplicity minimum="0" maximum="2147483647"/>
+    </source>
+    <target name="com.dicksoft.ocr.data.Song" navigable="true"/>
+    <display labels="true" multiplicity="true"/>
+  </association>
+  <association>
+    <source name="com.dicksoft.ocr.data.Mixer" navigable="false">
+      <attribute name="mixes"/>
+      <multiplicity minimum="0" maximum="2147483647"/>
+    </source>
+    <target name="com.dicksoft.ocr.data.Mix" navigable="true"/>
+    <display labels="true" multiplicity="true"/>
+  </association>
+  <association>
+    <source name="com.dicksoft.ocr.data.Mix" navigable="false">
+      <attribute name="songs"/>
+      <multiplicity minimum="0" maximum="2147483647"/>
+    </source>
+    <target name="com.dicksoft.ocr.data.Song" navigable="true"/>
+    <display labels="true" multiplicity="true"/>
+  </association>
+  <association>
+    <source name="com.dicksoft.ocr.data.Root" navigable="false">
+      <attribute name="emulators"/>
+      <multiplicity minimum="0" maximum="2147483647"/>
+    </source>
+    <target name="com.dicksoft.ocr.data.Emulator" navigable="true"/>
+    <display labels="true" multiplicity="true"/>
+  </association>
+  <association>
+    <source name="com.dicksoft.ocr.data.Emulator" navigable="false">
+      <attribute name="copyright"/>
+      <multiplicity minimum="0" maximum="1"/>
+    </source>
+    <target name="com.dicksoft.ocr.data.Publisher" navigable="true"/>
+    <display labels="true" multiplicity="true"/>
+  </association>
+  <association>
+    <source name="com.dicksoft.ocr.data.System" navigable="false">
+      <attribute name="emulators"/>
+      <multiplicity minimum="0" maximum="2147483647"/>
+    </source>
+    <target name="com.dicksoft.ocr.data.Emulator" navigable="true"/>
+    <display labels="true" multiplicity="true"/>
+  </association>
+  <association>
+    <source name="com.dicksoft.ocr.data.Root" navigable="false">
+      <attribute name="mixers"/>
+      <multiplicity minimum="0" maximum="2147483647"/>
+    </source>
+    <target name="com.dicksoft.ocr.data.Mixer" navigable="true"/>
+    <display labels="true" multiplicity="true"/>
+  </association>
+  <association>
+    <source name="com.dicksoft.ocr.data.Mix" navigable="false">
+      <attribute name="mixers"/>
+      <multiplicity minimum="0" maximum="2147483647"/>
+    </source>
+    <target name="com.dicksoft.ocr.data.Mixer" navigable="true"/>
+    <display labels="true" multiplicity="true"/>
+  </association>
+  <association>
+    <source name="com.dicksoft.ocr.data.Song" navigable="false">
+      <attribute name="composers"/>
+      <multiplicity minimum="0" maximum="2147483647"/>
+    </source>
+    <target name="com.dicksoft.ocr.data.Composer" navigable="true"/>
+    <display labels="true" multiplicity="true"/>
+  </association>
+</class-diagram>

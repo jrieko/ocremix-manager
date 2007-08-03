@@ -12,6 +12,7 @@
  */
 package com.dicksoft.ocr.data;
 
+import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -52,4 +53,9 @@ public class System {
     protected Publisher copyright;
     protected Set<Emulator> emulators = new HashSet<Emulator>();
     protected Set<Mix> mixes = new HashSet<Mix>();
+    protected Set<Song> songs = new HashSet<Song>();
+    protected Set<Game> games = new HashSet<Game>();
+    protected URL urlMoby;
+    protected URL urlVGMusic;
+    protected URL urlWiki;
 }

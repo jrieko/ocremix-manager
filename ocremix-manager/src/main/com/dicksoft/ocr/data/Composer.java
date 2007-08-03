@@ -29,5 +29,7 @@ public class Composer {
     protected URL urlMoby;
     protected URL urlBrainz;
     protected URL urlWiki;
-    protected Set<Mix> remixes = new HashSet<Mix>();
+    protected Set<Mix> mixes = new HashSet<Mix>();
+    protected Set<Song> songs = new HashSet<Song>();
+    protected Set<Game> games = new HashSet<Game>();
 }
