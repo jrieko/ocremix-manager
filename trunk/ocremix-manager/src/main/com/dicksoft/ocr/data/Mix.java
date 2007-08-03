@@ -13,25 +13,45 @@
 package com.dicksoft.ocr.data;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author <a href="mailto:ryo.away@gmail.com">Richard Taylor</a>
- *
+ * @see http://ocremix.org/remixes/
+ * @see http://ocremix.org/remix/[id]/
  */
 public class Mix {
     protected String id;
     protected String name;
     protected Date postDate;
     protected String filename;
+    protected int topicId;
+    protected int judgeId;
+    protected int lastfmId;
     protected byte[] md5Hash;
     protected int filesize;
     protected int length;
     protected int bitrate;
     protected String djpComment;
     protected String lyrics;
-    protected int lastfmId;
-    protected int judgeId;
-    protected int topicId;
     protected boolean inCollection;
     protected boolean ignored;
+    protected Game game;
+    protected Set<Mixer> mixers = new HashSet<Mixer>();
+    protected Set<Composer> composers = new HashSet<Composer>();
+    protected Publisher copyright;
+    protected Set<Song> songs = new HashSet<Song>();
+    protected ForumTopic forumTopic;
+
+    /**
+     * @author <a href="mailto:ryo.away@gmail.com">Richard Taylor</a>
+     * @see http://ocremix.org/forums/showthread.php?t=[id]
+     */
+    private class ForumTopic {
+        protected String recentComment;
+        protected int numComments;
+        protected int id;
+        protected int lastPostId;
+    }
 }
