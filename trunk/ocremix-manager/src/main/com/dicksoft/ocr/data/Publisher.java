@@ -25,4 +25,8 @@ public class Publisher {
     protected int id;
     protected URL url;
     protected Set<Mix> remixes = new HashSet<Mix>();
+    protected Set<Song> songs = new HashSet<Song>();
+    protected Set<System> systems = new HashSet<System>();
+    protected Set<Emulator> emulators = new HashSet<Emulator>();
+    protected Set<Game> games = new HashSet<Game>();
 }
