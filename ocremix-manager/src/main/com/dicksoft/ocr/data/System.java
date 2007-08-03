@@ -12,11 +12,44 @@
  */
 package com.dicksoft.ocr.data;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * @author <a href="mailto:ryo.away@gmail.com">Richard Taylor</a>
- *
+ * @see http://ocremix.org/systems/
+ * @see http://ocremix.org/system/[urlName]/
  */
 public class System {
-    protected String name;
+    /**
+     * @author <a href="mailto:ryo.away@gmail.com">Richard Taylor</a>
+     */
+    public enum Type {
+        ARCADE("Arcade"),
+        CONSOLE("Console"),
+        COMPUTER("Computer"),
+        HANDHELD("Handheld");
+        private String name;
+
+        private Type(String name) {
+            this.name = name;
+        }
+
+        /**
+         * @return the name
+         */
+        public String getName() {
+            return name;
+        }
+    }
+
     protected int id;
+    protected String name;
+    protected String urlName;
+    protected Type type;
+    protected String screenshotFile;
+    protected String iconFile;
+    protected Publisher copyright;
+    protected Set<Emulator> emulators = new HashSet<Emulator>();
+    protected Set<Mix> mixes = new HashSet<Mix>();
 }

@@ -12,16 +12,26 @@
  */
 package com.dicksoft.ocr.data;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * @author <a href="mailto:ryo.away@gmail.com">Richard Taylor</a>
+ * @see http://ocremix.org/games/
+ * @see http://ocremix.org/game/[urlName]/
  */
 public class Game {
     protected int id;
     protected String name;
-    protected String publisher;
+    protected String urlName;
     protected int year;
+    protected String screenshotFile;
+    protected String soundtrackFile;
+    protected int soundtrackFileSize;
+    protected String soundtrackFileExt;
+    protected Publisher copyright;
     protected System system;
-    protected String[] composers;
-    protected Mix[] mixes;
-
+    protected Set<Composer> composers = new HashSet<Composer>();
+    protected Set<Mix> mixes = new HashSet<Mix>();
+    protected Set<Song> songs = new HashSet<Song>();
 }
