@@ -13,7 +13,6 @@
 package com.dicksoft.ocr.data;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -21,21 +20,13 @@ import java.util.Set;
  */
 public class Root implements Serializable {
     private static final long serialVersionUID = -4755428645861211749L;
-    protected Set<Composer> composers = new HashSet<Composer>();
-    protected Set<Emulator> emulators = new HashSet<Emulator>();
-    protected Set<Game> games = new HashSet<Game>();
-    protected Set<Mix> mixes = new HashSet<Mix>();
-    protected Set<Mixer> mixers = new HashSet<Mixer>();
-    protected Set<Song> songs = new HashSet<Song>();
-    protected Set<System> systems = new HashSet<System>();
-
-    public void addComposer(Composer composer) {
-        this.composers.add(composer);
-    }
-
-    public void addEmulator(Emulator emulator) {
-        this.emulators.add(emulator);
-    }
+    protected Set<Composer> composers = new OCRSet<Composer>();
+    protected Set<Emulator> emulators = new OCRSet<Emulator>();
+    protected Set<Game> games = new OCRSet<Game>();
+    protected Set<Mix> mixes = new OCRSet<Mix>();
+    protected Set<Mixer> mixers = new OCRSet<Mixer>();
+    protected Set<Song> songs = new OCRSet<Song>();
+    protected Set<System> systems = new OCRSet<System>();
 
     /**
      * @return the composers
@@ -49,5 +40,40 @@ public class Root implements Serializable {
      */
     public Set<Emulator> getEmulators() {
         return this.emulators;
+    }
+
+    /**
+     * @return the games
+     */
+    public Set<Game> getGames() {
+        return this.games;
+    }
+
+    /**
+     * @return the mixers
+     */
+    public Set<Mixer> getMixers() {
+        return this.mixers;
+    }
+
+    /**
+     * @return the mixes
+     */
+    public Set<Mix> getMixes() {
+        return this.mixes;
+    }
+
+    /**
+     * @return the songs
+     */
+    public Set<Song> getSongs() {
+        return this.songs;
+    }
+
+    /**
+     * @return the systems
+     */
+    public Set<System> getSystems() {
+        return this.systems;
     }
 }

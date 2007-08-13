@@ -14,7 +14,6 @@ package com.dicksoft.ocr.data;
 
 import java.io.Serializable;
 import java.net.URL;
-import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -46,17 +45,16 @@ public class System extends OCRElement implements Serializable {
         }
     }
 
-    protected int id;
     protected String name;
     protected String urlName;
     protected Type type;
     protected String screenshotFile;
     protected String iconFile;
     protected Publisher copyright;
-    protected Set<Emulator> emulators = new HashSet<Emulator>();
-    protected Set<Mix> mixes = new HashSet<Mix>();
-    protected Set<Song> songs = new HashSet<Song>();
-    protected Set<Game> games = new HashSet<Game>();
+    protected Set<Emulator> emulators = new OCRSet<Emulator>();
+    protected Set<Mix> mixes = new OCRSet<Mix>();
+    protected Set<Song> songs = new OCRSet<Song>();
+    protected Set<Game> games = new OCRSet<Game>();
     protected URL urlMoby;
     protected URL urlVGMusic;
     protected URL urlWiki;

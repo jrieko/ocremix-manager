@@ -23,18 +23,29 @@ import com.dicksoft.ocr.data.Root;
  * @author <a href="mailto:ryo.away@gmail.com">Richard Taylor</a>
  */
 public class Deserializer {
-    private static ObjectInputStream deserializer;
+    // private static ObjectInputStream deserializer;
 
     public static Root read(String filename) throws FileNotFoundException,
             IOException, ClassNotFoundException {
-        return (Root) deserializer(filename).readObject();
+        ObjectInputStream deserializer =
+                new ObjectInputStream(new FileInputStream(filename));
+        Root root = (Root) deserializer.readObject();
+        deserializer.close();
+        return root;
     }
 
-    private static ObjectInputStream deserializer(String filename)
-            throws FileNotFoundException, IOException {
-        if (deserializer == null) {
-            deserializer = new ObjectInputStream(new FileInputStream(filename));
-        }
-        return deserializer;
-    }
+    // private synchronized static ObjectInputStream deserializer(String
+    // filename)
+    // throws FileNotFoundException, IOException {
+    // if (deserializer == null)
+    // deserializer = new ObjectInputStream(new FileInputStream(filename));
+    // return deserializer;
+    // }
+    //
+    // private synchronized static ObjectInputStream deserializer() {
+    // if (deserializer == null)
+    // throw new IllegalStateException("deserializer must be initialized"
+    // + " with deserializer(String) first.");
+    // return deserializer;
+    // }
 }

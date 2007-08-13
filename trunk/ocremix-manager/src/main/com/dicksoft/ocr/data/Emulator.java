@@ -14,7 +14,6 @@ package com.dicksoft.ocr.data;
 
 import java.io.Serializable;
 import java.net.URL;
-import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -53,11 +52,10 @@ public class Emulator extends OCRElement implements Serializable {
         }
     }
 
-    protected int id;
     protected String name;
     protected URL url;
     protected System system;
     protected boolean bestBet;
     protected Publisher copyright;
-    protected Set<Platform> platforms = new HashSet<Platform>();
+    protected Set<Platform> platforms = new OCRSet<Platform>();
 }

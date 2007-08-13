@@ -13,7 +13,6 @@
 package com.dicksoft.ocr.data;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -23,10 +22,9 @@ import java.util.Set;
  */
 public class Song extends OCRElement implements Serializable {
     private static final long serialVersionUID = 7688386478808844299L;
-    protected int id;
     protected Game game;
     protected Publisher copyright;
     protected System system;
-    protected Set<Composer> composers = new HashSet<Composer>();
-    protected Set<Mix> mixes = new HashSet<Mix>();
+    protected Set<Composer> composers = new OCRSet<Composer>();
+    protected Set<Mix> mixes = new OCRSet<Mix>();
 }
