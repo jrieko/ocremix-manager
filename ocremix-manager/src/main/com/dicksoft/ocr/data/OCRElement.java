@@ -12,10 +12,12 @@
  */
 package com.dicksoft.ocr.data;
 
+import java.io.Serializable;
+
 /**
  * @author <a href="mailto:ryo.away@gmail.com">Richard Taylor</a>
  */
-public abstract class OCRElement{
+public abstract class OCRElement implements Serializable {
     protected int id;
 
     /*

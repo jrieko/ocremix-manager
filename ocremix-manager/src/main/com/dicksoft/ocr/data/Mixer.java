@@ -14,7 +14,6 @@ package com.dicksoft.ocr.data;
 
 import java.io.Serializable;
 import java.net.URL;
-import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -24,7 +23,6 @@ import java.util.Set;
  */
 public class Mixer extends OCRElement implements Serializable {
     private static final long serialVersionUID = 180055796751326196L;
-    protected int id;
     protected String name;
     protected String imageFile;
     protected String realName;
@@ -33,5 +31,5 @@ public class Mixer extends OCRElement implements Serializable {
     protected URL urlBrainz;
     protected String email;
     protected int forumId;
-    protected Set<Mix> mixes = new HashSet<Mix>();
+    protected Set<Mix> mixes = new OCRSet<Mix>();
 }

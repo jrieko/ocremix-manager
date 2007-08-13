@@ -14,7 +14,6 @@ package com.dicksoft.ocr.data;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -24,7 +23,6 @@ import java.util.Set;
  */
 public class Mix extends OCRElement implements Serializable {
     private static final long serialVersionUID = 5548809044578971054L;
-    protected int id;
     protected String name;
     protected Date postDate;
     protected String filename;
@@ -40,11 +38,11 @@ public class Mix extends OCRElement implements Serializable {
     protected boolean inCollection;
     protected boolean ignored;
     protected Game game;
-    protected Set<Mixer> mixers = new HashSet<Mixer>();
-    protected Set<Composer> composers = new HashSet<Composer>();
+    protected Set<Mixer> mixers = new OCRSet<Mixer>();
+    protected Set<Composer> composers = new OCRSet<Composer>();
     protected Publisher copyright;
     protected System system;
-    protected Set<Song> songs = new HashSet<Song>();
+    protected Set<Song> songs = new OCRSet<Song>();
     protected ForumTopic forumTopic;
 
     /**

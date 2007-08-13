@@ -23,18 +23,27 @@ import com.dicksoft.ocr.data.Root;
  * @author <a href="mailto:ryo.away@gmail.com">Richard Taylor</a>
  */
 public class Serializer {
-    private static ObjectOutputStream serializer;
+//    private static ObjectOutputStream serializer;
 
     public static void write(Root data, String filename)
             throws FileNotFoundException, IOException {
-        serializer(filename).writeObject(data);
+        ObjectOutputStream serializer = new ObjectOutputStream(new FileOutputStream(filename));
+        serializer.writeObject(data);
+        serializer.close();
     }
 
-    private static ObjectOutputStream serializer(String filename)
-            throws FileNotFoundException, IOException {
-        if (serializer == null) {
-            serializer = new ObjectOutputStream(new FileOutputStream(filename));
-        }
-        return serializer;
-    }
+//    private synchronized static ObjectOutputStream serializer(String filename)
+//            throws FileNotFoundException, IOException {
+//        if (serializer == null)
+//            serializer = new ObjectOutputStream(new FileOutputStream(filename));
+//        return serializer;
+//    }
+//
+//    private synchronized static ObjectOutputStream serializer() {
+//        if (serializer == null)
+//            throw new IllegalStateException(
+//                    "serializer must be initialized with serializer(String) "
+//                            + "first.");
+//        return serializer;
+//    }
 }

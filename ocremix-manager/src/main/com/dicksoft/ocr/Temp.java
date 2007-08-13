@@ -12,23 +12,18 @@
  */
 package com.dicksoft.ocr;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import sun.security.provider.MD5;
-
 import com.dicksoft.ocr.data.Composer;
-import com.dicksoft.ocr.data.Emulator;
 import com.dicksoft.ocr.data.Root;
 import com.dicksoft.ocr.persistence.Deserializer;
 import com.dicksoft.ocr.persistence.Serializer;
-import com.dicksoft.ocr.util.HttpUtil;
-import com.dicksoft.ocr.util.StringUtil;
+import com.dicksoft.ocr.xml.Parser;
 
 /**
  * @author <a href="mailto:ryo.away@gmail.com">Richard Taylor</a>
@@ -44,36 +39,71 @@ public class Temp {
      * @param args
      */
     public static void main(String[] args) {
-        Root root = new Root();
-        root.addComposer(new Composer(20, "dood", "dood.jpg"));
-        root.addEmulator(new Emulator());
-        try {
-            Serializer.write(root, "temp.dat");
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        try {
-            Root newRoot = Deserializer.read("temp.dat");
-            System.out.println(root.getComposers().size());
-            for (Composer comp : newRoot.getComposers()) {
-                System.out.println(comp.getId() + ", " + comp.getName() + ", "
-                        + comp.getImageFile());
+        Root root = null;
+        if (new File("temp.dat").exists()) {
+            try {
+                root = Deserializer.read("temp.dat");
+            } catch (FileNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
             }
-            System.out.println(root.getEmulators().size());
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        } else {
+            root = new Root();
+            Parser.parse(root);
         }
+        System.out.println(root.getComposers().size());
+        for (Composer c : root.getComposers()) {
+            System.out.print(c.getName() + ", ");
+        }
+        if (!new File("temp.dat").exists()) {
+            try {
+                Serializer.write(root, "temp.dat");
+            } catch (FileNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+        // /////////////////////
+        // Root root = new Root();
+        // root.addComposer(new Composer(20, "dood", "dood.jpg"));
+        // root.addEmulator(new Emulator());
+        // try {
+        // Serializer.write(root, "temp.dat");
+        // } catch (FileNotFoundException e) {
+        // // TODO Auto-generated catch block
+        // e.printStackTrace();
+        // } catch (IOException e) {
+        // // TODO Auto-generated catch block
+        // e.printStackTrace();
+        // }
+        // try {
+        // Root newRoot = Deserializer.read("temp.dat");
+        // System.out.println(root.getComposers().size());
+        // for (Composer comp : newRoot.getComposers()) {
+        // System.out.println(comp.getId() + ", " + comp.getName() + ", "
+        // + comp.getImageFile());
+        // }
+        // System.out.println(root.getEmulators().size());
+        // } catch (FileNotFoundException e) {
+        // // TODO Auto-generated catch block
+        // e.printStackTrace();
+        // } catch (IOException e) {
+        // // TODO Auto-generated catch block
+        // e.printStackTrace();
+        // } catch (ClassNotFoundException e) {
+        // // TODO Auto-generated catch block
+        // e.printStackTrace();
+        // }
+        // ///////////////////
         // LOG.info("Fetching");
         // String result = null;
         // boolean done = false;
