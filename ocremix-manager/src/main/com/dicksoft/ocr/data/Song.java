@@ -27,4 +27,12 @@ public class Song extends OCRElement implements Serializable {
     protected System system;
     protected Set<Composer> composers = new OCRSet<Composer>();
     protected Set<Mix> mixes = new OCRSet<Mix>();
+    /**
+     * @param id
+     * @param name
+     * @throws IllegalArgumentException
+     */
+    public Song(int id, String name) throws IllegalArgumentException {
+        super(id, name);
+    }
 }

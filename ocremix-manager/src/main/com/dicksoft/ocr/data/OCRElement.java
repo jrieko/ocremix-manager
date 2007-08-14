@@ -19,6 +19,23 @@ import java.io.Serializable;
  */
 public abstract class OCRElement implements Serializable {
     protected int id;
+    protected String name;
+
+    /**
+     * @param id
+     *            the unique ID
+     * @param name
+     *            the name of the element; must not be null or empty
+     * @throws IllegalArgumentException
+     *             if name is null or empty
+     */
+    public OCRElement(int id, String name) throws IllegalArgumentException {
+        if (name == null || name.equals("")) {
+            throw new IllegalArgumentException("name must not be null or empty");
+        }
+        this.id = id;
+        this.name = name;
+    }
 
     /*
      * (non-Javadoc)

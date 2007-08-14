@@ -18,13 +18,15 @@ import java.net.URL;
 import java.util.Set;
 
 import com.dicksoft.ocr.util.StringUtil;
+import com.dicksoft.ocr.xml.Parseable;
 
 /**
  * @author <a href="mailto:ryo.away@gmail.com">Richard Taylor</a>
  * @see http://ocremix.org/composers/
  * @see http://ocremix.org/composer/id/[id]/
  */
-public class Composer extends OCRElement implements Serializable {
+public class Composer extends OCRElement implements Serializable, Parseable {
+    public static final String NO_EXIST_TAG = "nocomposer";
     public static final String TAG = "composer";
     public static final String ID_TAG = "composerid";
     public static final String NAME_TAG = "composername";
@@ -34,7 +36,6 @@ public class Composer extends OCRElement implements Serializable {
     public static final String URL_BRAINZ_TAG = "composerurl_brainz";
     public static final String URL_WIKI_TAG = "composerurl_wiki";
     private static final long serialVersionUID = 7766261829995228374L;
-    protected String name;
     protected String imageFile;
     protected URL url;
     protected URL urlMoby;
@@ -45,12 +46,10 @@ public class Composer extends OCRElement implements Serializable {
     protected Set<Game> games = new OCRSet<Game>();
 
     /**
-     * Default constructor
-     * 
      * @param id
      *            the unique ID
      * @param name
-     *            the name of the composer; must not be null or empty
+     *            the name of the element; must not be null or empty
      * @param imageFile
      *            the filename of the image associated with the composer
      * @param url
@@ -68,12 +67,8 @@ public class Composer extends OCRElement implements Serializable {
      */
     public Composer(int id, String name, String imageFile, String url,
             String urlMoby, String urlBrainz, String urlWiki)
-            throws MalformedURLException, IllegalArgumentException {
-        if (name == null || name.equals("")) {
-            throw new IllegalArgumentException("name must not be null or empty");
-        }
-        this.id = id;
-        this.name = name;
+            throws MalformedURLException {
+        super(id, name);
         this.imageFile = imageFile;
         if (url != null)
             this.url = new URL(url);
@@ -156,25 +151,25 @@ public class Composer extends OCRElement implements Serializable {
     }
 
     /**
-     * Parse the XML for a Composer
+     * Parse the XML for an element
      * 
      * @param xml
      *            the XML
-     * @return the Composer if a valid one is described in the XML, null
+     * @return the element if a valid one is described in the XML, null
      *         otherwise
      */
     public static Composer parse(String xml) {
-        if (Boolean.parseBoolean(StringUtil.getElement(xml, "nocomposer")))
+        if (Boolean.parseBoolean(StringUtil.getElement(xml, NO_EXIST_TAG)))
             return null;
-        String composer = StringUtil.getElement(xml, TAG);
+        String element = StringUtil.getElement(xml, TAG);
         try {
             return new Composer(Integer.parseInt(StringUtil.getElement(
-                    composer, ID_TAG)), StringUtil.getElement(composer,
-                    NAME_TAG), StringUtil.getElement(composer, IMAGE_FILE_TAG),
-                    StringUtil.getElement(composer, URL_TAG), StringUtil
-                            .getElement(composer, URL_MOBY_TAG), StringUtil
-                            .getElement(composer, URL_BRAINZ_TAG), StringUtil
-                            .getElement(composer, URL_WIKI_TAG));
+                    element, ID_TAG)), StringUtil.getElement(element,
+                    NAME_TAG), StringUtil.getElement(element, IMAGE_FILE_TAG),
+                    StringUtil.getElement(element, URL_TAG), StringUtil
+                            .getElement(element, URL_MOBY_TAG), StringUtil
+                            .getElement(element, URL_BRAINZ_TAG), StringUtil
+                            .getElement(element, URL_WIKI_TAG));
         } catch (MalformedURLException e) {
             return null;
         } catch (NumberFormatException e) {
@@ -182,5 +177,22 @@ public class Composer extends OCRElement implements Serializable {
         } catch (IllegalArgumentException e) {
             return null;
         }
+    }
+
+    /**
+     * @return the URL of the page that describes the list of this element
+     */
+    public static String listUrl() {
+        return OCREMIX_URL + "/composers/";
+    }
+
+    /**
+     * @param id
+     *            the ID of the element
+     * @return the URL of the XML that describes the element with the specified
+     *         ID
+     */
+    public static String elementUrl(int id) {
+        return OCREMIX_URL + "/composer/id/" + id + "/" + XML_STYLE;
     }
 }

@@ -23,6 +23,7 @@ import com.dicksoft.ocr.data.Composer;
 import com.dicksoft.ocr.data.Root;
 import com.dicksoft.ocr.persistence.Deserializer;
 import com.dicksoft.ocr.persistence.Serializer;
+import com.dicksoft.ocr.xml.NotParseableException;
 import com.dicksoft.ocr.xml.Parser;
 
 /**
@@ -37,8 +38,9 @@ public class Temp {
 
     /**
      * @param args
+     * @throws NotParseableException 
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws NotParseableException {
         Root root = null;
         if (new File("temp.dat").exists()) {
             try {

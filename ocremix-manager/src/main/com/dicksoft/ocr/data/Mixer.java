@@ -23,7 +23,6 @@ import java.util.Set;
  */
 public class Mixer extends OCRElement implements Serializable {
     private static final long serialVersionUID = 180055796751326196L;
-    protected String name;
     protected String imageFile;
     protected String realName;
     protected String urlName;
@@ -32,4 +31,26 @@ public class Mixer extends OCRElement implements Serializable {
     protected String email;
     protected int forumId;
     protected Set<Mix> mixes = new OCRSet<Mix>();
+    /**
+     * @param id
+     * @param name
+     * @param imageFile
+     * @param realName
+     * @param urlName
+     * @param url
+     * @param urlBrainz
+     * @param email
+     * @param forumId
+     * @throws IllegalArgumentException
+     */
+    public Mixer(int id, String name, String imageFile, String realName, String urlName, URL url, URL urlBrainz, String email, int forumId) throws IllegalArgumentException {
+        super(id, name);
+        this.imageFile = imageFile;
+        this.realName = realName;
+        this.urlName = urlName;
+        this.url = url;
+        this.urlBrainz = urlBrainz;
+        this.email = email;
+        this.forumId = forumId;
+    }
 }
