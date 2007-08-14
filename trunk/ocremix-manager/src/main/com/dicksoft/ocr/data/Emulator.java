@@ -13,15 +13,18 @@
 package com.dicksoft.ocr.data;
 
 import java.io.Serializable;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Set;
+
+import com.dicksoft.ocr.xml.Parseable;
 
 /**
  * @author <a href="mailto:ryo.away@gmail.com">Richard Taylor</a>
  * @see http://ocremix.org/emulators/
  * @see http://ocremix.org/emulator/id/[id]/
  */
-public class Emulator extends OCRElement implements Serializable {
+public class Emulator extends OCRElement implements Serializable, Parseable {
     private static final long serialVersionUID = 1L;
 
     public enum Platform {
@@ -52,10 +55,17 @@ public class Emulator extends OCRElement implements Serializable {
         }
     }
 
-    protected String name;
     protected URL url;
     protected System system;
     protected boolean bestBet;
     protected Publisher copyright;
     protected Set<Platform> platforms = new OCRSet<Platform>();
+
+    public Emulator(int id, String name, String url, boolean bestBet)
+            throws MalformedURLException {
+        super(id, name);
+        if (url != null)
+            this.url = new URL(url);
+        this.bestBet = bestBet;
+    }
 }

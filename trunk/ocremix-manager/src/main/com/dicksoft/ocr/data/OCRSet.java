@@ -18,7 +18,7 @@ import java.util.HashSet;
 
 /**
  * A HashSet that does not allow null elements.
- * 
+ * TODO synchronized access
  * @author <a href="mailto:ryo.away@gmail.com">Richard Taylor</a>
  */
 public class OCRSet<E> extends HashSet<E> implements Serializable {

@@ -23,7 +23,6 @@ import java.util.Set;
  */
 public class Mix extends OCRElement implements Serializable {
     private static final long serialVersionUID = 5548809044578971054L;
-    protected String name;
     protected Date postDate;
     protected String filename;
     protected int topicId;
@@ -44,6 +43,47 @@ public class Mix extends OCRElement implements Serializable {
     protected System system;
     protected Set<Song> songs = new OCRSet<Song>();
     protected ForumTopic forumTopic;
+
+    /**
+     * @param id
+     * @param name
+     * @param postDate
+     * @param filename
+     * @param topicId
+     * @param judgeId
+     * @param lastfmId
+     * @param md5Hash
+     * @param filesize
+     * @param length
+     * @param bitrate
+     * @param djpComment
+     * @param lyrics
+     * @param inCollection
+     * @param ignored
+     * @param forumTopic
+     * @throws IllegalArgumentException
+     */
+    public Mix(int id, String name, Date postDate, String filename,
+            int topicId, int judgeId, int lastfmId, byte[] md5Hash,
+            int filesize, int length, int bitrate, String djpComment,
+            String lyrics, boolean inCollection, boolean ignored,
+            ForumTopic forumTopic) throws IllegalArgumentException {
+        super(id, name);
+        this.postDate = postDate;
+        this.filename = filename;
+        this.topicId = topicId;
+        this.judgeId = judgeId;
+        this.lastfmId = lastfmId;
+        this.md5Hash = md5Hash;
+        this.filesize = filesize;
+        this.length = length;
+        this.bitrate = bitrate;
+        this.djpComment = djpComment;
+        this.lyrics = lyrics;
+        this.inCollection = inCollection;
+        this.ignored = ignored;
+        this.forumTopic = forumTopic;
+    }
 
     /**
      * @author <a href="mailto:ryo.away@gmail.com">Richard Taylor</a>

@@ -23,6 +23,7 @@ import java.util.Set;
  */
 public class System extends OCRElement implements Serializable {
     private static final long serialVersionUID = 9145563592660998914L;
+
     /**
      * @author <a href="mailto:ryo.away@gmail.com">Richard Taylor</a>
      */
@@ -45,7 +46,6 @@ public class System extends OCRElement implements Serializable {
         }
     }
 
-    protected String name;
     protected String urlName;
     protected Type type;
     protected String screenshotFile;
@@ -58,4 +58,30 @@ public class System extends OCRElement implements Serializable {
     protected URL urlMoby;
     protected URL urlVGMusic;
     protected URL urlWiki;
+
+    /**
+     * @param id
+     * @param name
+     * @param urlName
+     * @param type
+     * @param screenshotFile
+     * @param iconFile
+     * @param urlMoby
+     * @param urlVGMusic
+     * @param urlWiki
+     * @throws IllegalArgumentException
+     */
+    public System(int id, String name, String urlName, Type type,
+            String screenshotFile, String iconFile, URL urlMoby,
+            URL urlVGMusic, URL urlWiki) throws IllegalArgumentException {
+        super(id, name);
+        this.urlName = urlName;
+        this.type = type;
+        this.screenshotFile = screenshotFile;
+        this.iconFile = iconFile;
+        this.urlMoby = urlMoby;
+        this.urlVGMusic = urlVGMusic;
+        this.urlWiki = urlWiki;
+    }
+
 }
