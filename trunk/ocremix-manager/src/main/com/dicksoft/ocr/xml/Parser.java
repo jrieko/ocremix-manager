@@ -29,17 +29,17 @@ import com.dicksoft.ocr.util.StringUtil;
  * @author <a href="mailto:ryo.away@gmail.com">Richard Taylor</a>
  */
 public class Parser {
-//    public static final String OCREMIX_URL = "http://ocremix.org";
-//    public static final String XML_STYLE = "?style=xml";
-//    public static final String COMPOSERS_URL = OCREMIX_URL + "/composers/";
-//    public static final String EMULATORS_URL = OCREMIX_URL + "/emulators/";
-//    public static final String GAMES_URL = OCREMIX_URL + "/games/";
-//    public static final String MIXES_URL = OCREMIX_URL + "/remixes/";
-//    public static final String MIXERS_URL = OCREMIX_URL + "/mixers/";
-//    public static final String PUBLISHERS_URL =
-//            OCREMIX_URL + "/list.php?type=copyright";
-//    public static final String SONGS_URL = OCREMIX_URL + "/songs/";
-//    public static final String SYSTEMS_URL = OCREMIX_URL + "/systems/";
+    // public static final String OCREMIX_URL = "http://ocremix.org";
+    // public static final String XML_STYLE = "?style=xml";
+    // public static final String COMPOSERS_URL = OCREMIX_URL + "/composers/";
+    // public static final String EMULATORS_URL = OCREMIX_URL + "/emulators/";
+    // public static final String GAMES_URL = OCREMIX_URL + "/games/";
+    // public static final String MIXES_URL = OCREMIX_URL + "/remixes/";
+    // public static final String MIXERS_URL = OCREMIX_URL + "/mixers/";
+    // public static final String PUBLISHERS_URL =
+    // OCREMIX_URL + "/list.php?type=copyright";
+    // public static final String SONGS_URL = OCREMIX_URL + "/songs/";
+    // public static final String SYSTEMS_URL = OCREMIX_URL + "/systems/";
     private static final Log LOG = LogFactory.getLog(Parser.class);
 
     /**
@@ -54,11 +54,11 @@ public class Parser {
     public static void parse(Root root) throws NotParseableException {
         parse(Composer.class, root.getComposers());
         parse(Emulator.class, root.getEmulators());
-//        parse(Game.class, root.getGames());
-//        parse(Mix.class, root.getMixes());
-//        parse(Mixer.class, root.getMixers());
-//        parse(Song.class, root.getSongs());
-//        parse(System.class, root.getSystems());
+        // parse(Game.class, root.getGames());
+        // parse(Mix.class, root.getMixes());
+        // parse(Mixer.class, root.getMixers());
+        // parse(Song.class, root.getSongs());
+        // parse(System.class, root.getSystems());
     }
 
     /**
@@ -195,7 +195,9 @@ public class Parser {
     public static int parseSize(String url) {
         try {
             return Integer.parseInt(StringUtil.getBetween(StringUtil
-                    .getElement(HttpUtil.fetchText(url), "title"), "(", ")"));
+                    .getElement(HttpUtil.fetchText(url
+                            + (url.contains("?") ? "&limit=20" : "?limit=20")),
+                            "title"), "(", ")"));
         } catch (IOException e) {
             LOG.error("parseSize():", e);
             return -1;
