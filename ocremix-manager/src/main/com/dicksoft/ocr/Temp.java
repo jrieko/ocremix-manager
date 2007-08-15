@@ -15,11 +15,13 @@ package com.dicksoft.ocr;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.dicksoft.ocr.data.Composer;
+import com.dicksoft.ocr.data.Emulator;
 import com.dicksoft.ocr.data.Root;
 import com.dicksoft.ocr.persistence.Deserializer;
 import com.dicksoft.ocr.persistence.Serializer;
@@ -38,42 +40,47 @@ public class Temp {
 
     /**
      * @param args
-     * @throws NotParseableException 
+     * @throws NotParseableException
      */
     public static void main(String[] args) throws NotParseableException {
-        Root root = null;
-        if (new File("temp.dat").exists()) {
-            try {
-                root = Deserializer.read("temp.dat");
-            } catch (FileNotFoundException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        } else {
-            root = new Root();
-            Parser.parse(root);
+        Set<Emulator> emus = Emulator.parseListing();
+        for (Emulator emu : emus) {
+            System.out.println(emu.getId() + ": " + emu.getName());
         }
-        System.out.println(root.getComposers().size());
-        for (Composer c : root.getComposers()) {
-            System.out.print(c.getName() + ", ");
-        }
-        if (!new File("temp.dat").exists()) {
-            try {
-                Serializer.write(root, "temp.dat");
-            } catch (FileNotFoundException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
+        // ////////////////////////
+        // Root root = null;
+        // if (new File("temp.dat").exists()) {
+        // try {
+        // root = Deserializer.read("temp.dat");
+        // } catch (FileNotFoundException e) {
+        // // TODO Auto-generated catch block
+        // e.printStackTrace();
+        // } catch (IOException e) {
+        // // TODO Auto-generated catch block
+        // e.printStackTrace();
+        // } catch (ClassNotFoundException e) {
+        // // TODO Auto-generated catch block
+        // e.printStackTrace();
+        // }
+        // } else {
+        // root = new Root();
+        // Parser.parse(root);
+        // }
+        // System.out.println(root.getComposers().size());
+        // for (Composer c : root.getComposers()) {
+        // System.out.print(c.getName() + ", ");
+        // }
+        // if (!new File("temp.dat").exists()) {
+        // try {
+        // Serializer.write(root, "temp.dat");
+        // } catch (FileNotFoundException e) {
+        // // TODO Auto-generated catch block
+        // e.printStackTrace();
+        // } catch (IOException e) {
+        // // TODO Auto-generated catch block
+        // e.printStackTrace();
+        // }
+        // }
         // /////////////////////
         // Root root = new Root();
         // root.addComposer(new Composer(20, "dood", "dood.jpg"));

@@ -15,18 +15,26 @@ package com.dicksoft.ocr.data;
 import java.io.Serializable;
 import java.util.Set;
 
+import com.dicksoft.ocr.xml.Parser;
+
 /**
  * @author <a href="mailto:ryo.away@gmail.com">Richard Taylor</a>
  */
 public class Root implements Serializable {
     private static final long serialVersionUID = -4755428645861211749L;
-    protected Set<Composer> composers = new OCRSet<Composer>();
-    protected Set<Emulator> emulators = new OCRSet<Emulator>();
-    protected Set<Game> games = new OCRSet<Game>();
-    protected Set<Mix> mixes = new OCRSet<Mix>();
-    protected Set<Mixer> mixers = new OCRSet<Mixer>();
-    protected Set<Song> songs = new OCRSet<Song>();
-    protected Set<System> systems = new OCRSet<System>();
+    protected Set<Composer> composers =
+            new OCRSet<Composer>(Parser.parseSize(Composer.listUrl()));
+    protected Set<Emulator> emulators =
+            new OCRSet<Emulator>(Parser.parseSize(Emulator.listUrl()));
+    protected Set<Game> games =
+            new OCRSet<Game>(Parser.parseSize(Game.listUrl()));
+    protected Set<Mix> mixes = new OCRSet<Mix>(Parser.parseSize(Mix.listUrl()));
+    protected Set<Mixer> mixers =
+            new OCRSet<Mixer>(Parser.parseSize(Mixer.listUrl()));
+    protected Set<Song> songs =
+            new OCRSet<Song>(Parser.parseSize(Song.listUrl()));
+    protected Set<System> systems =
+            new OCRSet<System>(Parser.parseSize(System.listUrl()));
 
     /**
      * @return the composers

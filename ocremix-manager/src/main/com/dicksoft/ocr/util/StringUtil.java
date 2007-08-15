@@ -12,6 +12,8 @@
  */
 package com.dicksoft.ocr.util;
 
+import java.util.ArrayList;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -40,10 +42,33 @@ public final class StringUtil {
      *         the source or if the String between was the empty String, "".
      */
     public static String getBetween(String source, String a, String b) {
-        int aIndex = source.indexOf(a);
+        return getBetween(source, 0, a, b);
+    }
+
+    /**
+     * Get the String between the first match of a and the first subsequent
+     * match of b from source. For example, if the source were "a cat is walking
+     * this way" and the boundaries were "a cat" and "this" then the result
+     * would be " is walking ".
+     * 
+     * @param source
+     *            the source String
+     * @param startIndex
+     *            the index in source from which to start the search
+     * @param a
+     *            the first boundary
+     * @param b
+     *            the second boundary
+     * @return the String between, or null if either boundary was not found in
+     *         the source or if the String between was the empty String, "".
+     */
+    public static String getBetween(String source, int startIndex, String a,
+            String b) {
+        int aIndex = source.indexOf(a, startIndex);
         if (aIndex == -1) {
             LOG.debug("String a, " + a
-                    + " was not found in the target String, " + source);
+                    + " was not found in the target String, " + source
+                    + ", starting at " + startIndex);
             return null;
         }
         int bIndex = source.indexOf(b, aIndex + a.length());
@@ -57,6 +82,44 @@ public final class StringUtil {
         if (result.equals(""))
             return null;
         return result;
+    }
+
+    /**
+     * Get all instances of the String between matches of a and subsequent
+     * matches of b from source.
+     * 
+     * @param source
+     *            the source String
+     * @param a
+     *            the first boundary
+     * @param b
+     *            the second boundary
+     * @return the Strings between, or an empty array if either boundary was not
+     *         found in the source or if the String between was the empty
+     *         String, "".
+     */
+    public static String[] getBetweens(String source, String a, String b) {
+        ArrayList<String> result = new ArrayList<String>();
+        int aIndex = 0;
+        for (int i = 0;; i = aIndex) {
+            aIndex = source.indexOf(a, i);
+            if (aIndex == -1) {
+                LOG.debug("String a, " + a
+                        + " was not found in the target String, " + source
+                        + ", starting at " + i);
+                return result.toArray(new String[result.size()]);
+            }
+            int bIndex = source.indexOf(b, aIndex + a.length());
+            if (bIndex == -1) {
+                LOG.debug("String b, " + b
+                        + " was not found in the target String, " + source);
+                return result.toArray(new String[result.size()]);
+            }
+            String next = source.substring(aIndex + a.length(), bIndex);
+            if (next.equals(""))
+                return result.toArray(new String[result.size()]);
+            result.add(next);
+        }
     }
 
     /**
@@ -105,6 +168,31 @@ public final class StringUtil {
             value = getSuffix(t, ">");
         }
         return value;
+    }
+
+    /**
+     * Get the values of all instances of elements with the specified tag in the
+     * specified XML.
+     * 
+     * @param xml
+     *            the source XML
+     * @param tag
+     *            the tag of the sought after element
+     * @return the values of the elements, or an empty array if the element was
+     *         not found or the value was empty
+     */
+    public static String[] getElements(String xml, String tag) {
+        String[] values = getBetweens(xml, "<" + tag + ">", "</" + tag + ">");
+        if (values.length == 0) {
+            String[] t = getBetweens(xml, "<" + tag, "</" + tag + ">");
+            if (t.length == 0)
+                return t;
+            values = new String[t.length];
+            for (int i = 0; i < t.length; i++) {
+                values[i] = getSuffix(t[i], ">");
+            }
+        }
+        return values;
     }
 
     /**

@@ -64,4 +64,18 @@ public abstract class OCRElement implements Serializable {
     public int hashCode() {
         return this.id;
     }
+
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return this.id;
+    }
+
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return this.name;
+    }
 }
