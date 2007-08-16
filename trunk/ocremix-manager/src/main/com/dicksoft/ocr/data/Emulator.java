@@ -49,9 +49,9 @@ public class Emulator extends OCRElement implements Serializable, Parseable {
     private static final Log LOG = LogFactory.getLog(Emulator.class);
 
     public enum Platform {
-        DOS("MSDOS", "ocr4_icon_small_pdos.gif"),
+        DOS("DOS", "ocr4_icon_small_pdos.gif"),
         LINUX("Linux", "ocr4_icon_small_plinux.gif"),
-        MAC("Macintosh", "ocr4_icon_small_pmac.gif"),
+        MACINTOSH("Macintosh", "ocr4_icon_small_pmac.gif"),
         WINDOWS("Windows", "ocr4_icon_small_pwin32.gif");
         private String name;
         private String iconFile;
@@ -74,6 +74,16 @@ public class Emulator extends OCRElement implements Serializable, Parseable {
         public String getName() {
             return this.name;
         }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see java.lang.Enum#toString()
+         */
+        @Override
+        public String toString() {
+            return this.getName();
+        }
     }
 
     protected URL url;
@@ -82,12 +92,13 @@ public class Emulator extends OCRElement implements Serializable, Parseable {
     protected Publisher copyright;
     protected Set<Platform> platforms = new OCRSet<Platform>();
 
-    public Emulator(int id, String name, String url, boolean bestBet)
-            throws MalformedURLException {
+    public Emulator(int id, String name, String url, boolean bestBet,
+            Set<Platform> platforms) throws MalformedURLException {
         super(id, name);
         if (url != null)
             this.url = new URL(url);
         this.bestBet = bestBet;
+        this.platforms = platforms;
     }
 
     /**
@@ -108,7 +119,7 @@ public class Emulator extends OCRElement implements Serializable, Parseable {
                     ID_TAG)), StringUtil.getElement(element, NAME_TAG),
                     StringUtil.getElement(element, URL_TAG), Boolean
                             .parseBoolean(StringUtil.getElement(element,
-                                    BEST_BET_TAG)));
+                                    BEST_BET_TAG)), null);
         } catch (MalformedURLException e) {
             return null;
         } catch (IllegalArgumentException e) {
@@ -118,6 +129,7 @@ public class Emulator extends OCRElement implements Serializable, Parseable {
 
     public static Set<Emulator> parseListing() {
         int size = Parser.parseSize("http://ocremix.org/emulators/");
+        LOG.debug("parseListing() size=" + size);
         OCRSet<Emulator> result = new OCRSet<Emulator>(size);
         String html = null;
         for (int i = 0; i < size; i += 100) {
@@ -131,16 +143,26 @@ public class Emulator extends OCRElement implements Serializable, Parseable {
                 continue;
             }
             String[] rows = StringUtil.getElements(html, "tr");
+            LOG.debug("parseListing() numRows=" + rows.length);
             for (String row : rows) {
                 String[] columns = StringUtil.getElements(row, "td");
+                if (columns.length == 0)
+                    continue;
                 if (columns[0].contains("<a href=\"/detailemulator.php")) {
                     try {
+                        OCRSet<Platform> platforms = new OCRSet<Platform>(4);
+                        for (int j = 3; j < 7; j++) {
+                            if (columns[j] != null)
+                                platforms.add(Platform.valueOf(StringUtil
+                                        .getAttribute(columns[j], "img", "alt")
+                                        .toUpperCase()));
+                        }
                         result.add(new Emulator(Integer.parseInt(StringUtil
                                 .getSuffix(StringUtil.getAttribute(columns[0],
                                         "a", "href"), "emuid=")), StringUtil
                                 .getElement(columns[0], "a"), StringUtil
                                 .getAttribute(columns[2], "a", "href"),
-                                columns[1] == null));
+                                columns[1] == null, platforms));
                     } catch (NumberFormatException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
@@ -205,5 +227,18 @@ public class Emulator extends OCRElement implements Serializable, Parseable {
      */
     public URL getUrl() {
         return this.url;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return this.getId() + ": name=" + this.getName() + " URL="
+                + this.getUrl() + " platforms=" + this.getPlatforms()
+                + " system=" + this.getSystem() + " copyright="
+                + this.getCopyright();
     }
 }

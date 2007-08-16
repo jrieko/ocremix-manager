@@ -13,20 +13,19 @@
 package com.dicksoft.ocr;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.PropertyConfigurator;
 
-import com.dicksoft.ocr.data.Composer;
 import com.dicksoft.ocr.data.Emulator;
-import com.dicksoft.ocr.data.Root;
-import com.dicksoft.ocr.persistence.Deserializer;
-import com.dicksoft.ocr.persistence.Serializer;
+import com.dicksoft.ocr.util.StringUtil;
 import com.dicksoft.ocr.xml.NotParseableException;
-import com.dicksoft.ocr.xml.Parser;
 
 /**
  * @author <a href="mailto:ryo.away@gmail.com">Richard Taylor</a>
@@ -36,16 +35,20 @@ public class Temp {
     // ";
     // private static final int TOTAL_GAME_MAX_DIGITS = 30;
     // private static final int NUM_GAMES_PER_PAGE = 100;
-    private static final Log LOG = LogFactory.getLog(Temp.class);
+    private static Log LOG;
+    private static final String LOG4JPROPERTIES =
+            "src" + StringUtil.FS + "conf" + StringUtil.FS + "log4j.properties";
+    private static final String LOG4JLOCATION = "log" + StringUtil.FS;
 
     /**
      * @param args
      * @throws NotParseableException
      */
     public static void main(String[] args) throws NotParseableException {
+        setupLog();
         Set<Emulator> emus = Emulator.parseListing();
         for (Emulator emu : emus) {
-            System.out.println(emu.getId() + ": " + emu.getName());
+            System.out.println(emu);
         }
         // ////////////////////////
         // Root root = null;
@@ -155,5 +158,30 @@ public class Temp {
         // for (int i = 2; i <= numPages; i++) {
         //
         // }
+    }
+
+    private static void setupLog() {
+        System.getProperties().setProperty("org.apache.commons.logging.Log",
+                "org.apache.commons.logging.impl.Log4JLogger");
+        Properties properties = new Properties();
+        InputStream input;
+        try {
+            input = new FileInputStream(LOG4JPROPERTIES);
+            properties.load(input);
+        } catch (FileNotFoundException e) {
+            System.err.println("Log4J properties file not found at "
+                    + LOG4JPROPERTIES);
+        } catch (Exception e) {
+            System.err.println("Log4J properties file read error.");
+        }
+        File logDir = new File(LOG4JLOCATION + StringUtil.FS);
+        if (!logDir.exists()) {
+            logDir.mkdirs();
+        }
+        properties.setProperty("log4j.appender.FILE.File", logDir
+                .getAbsolutePath()
+                + StringUtil.FS + "main.log");
+        PropertyConfigurator.configure(properties);
+        LOG = LogFactory.getLog(Temp.class);
     }
 }

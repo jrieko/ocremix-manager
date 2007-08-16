@@ -22,6 +22,9 @@ import org.apache.commons.logging.LogFactory;
  */
 public final class StringUtil {
     private static final Log LOG = LogFactory.getLog(StringUtil.class);
+    public static final String FS = System.getProperty("file.separator");
+    public static final String LF = System.getProperty("line.separator");
+    public static final String TAB = "\t";
 
     private StringUtil() {
     }
@@ -73,8 +76,9 @@ public final class StringUtil {
         }
         int bIndex = source.indexOf(b, aIndex + a.length());
         if (bIndex == -1) {
-            LOG.debug("String b, " + b
-                    + " was not found in the target String, " + source);
+            LOG
+                    .debug("String b, " + b
+                            + " was not found in the target String.");
             return null;
         }
 
@@ -101,18 +105,19 @@ public final class StringUtil {
     public static String[] getBetweens(String source, String a, String b) {
         ArrayList<String> result = new ArrayList<String>();
         int aIndex = 0;
-        for (int i = 0;; i = aIndex) {
+        int bIndex = 0;
+        for (int i = 0;; i = bIndex + b.length()) {
             aIndex = source.indexOf(a, i);
             if (aIndex == -1) {
                 LOG.debug("String a, " + a
-                        + " was not found in the target String, " + source
-                        + ", starting at " + i);
+                        + " was not found in the target String, starting at "
+                        + i);
                 return result.toArray(new String[result.size()]);
             }
-            int bIndex = source.indexOf(b, aIndex + a.length());
+            bIndex = source.indexOf(b, aIndex + a.length());
             if (bIndex == -1) {
                 LOG.debug("String b, " + b
-                        + " was not found in the target String, " + source);
+                        + " was not found in the target String.");
                 return result.toArray(new String[result.size()]);
             }
             String next = source.substring(aIndex + a.length(), bIndex);
@@ -137,8 +142,9 @@ public final class StringUtil {
     public static String getSuffix(String source, String a) {
         int aIndex = source.indexOf(a);
         if (aIndex == -1) {
-            LOG.debug("String a, " + a
-                    + " was not found in the target String, " + source);
+            LOG
+                    .debug("String a, " + a
+                            + " was not found in the target String.");
             return null;
         }
         String result = source.substring(aIndex + a.length());
@@ -182,14 +188,10 @@ public final class StringUtil {
      *         not found or the value was empty
      */
     public static String[] getElements(String xml, String tag) {
-        String[] values = getBetweens(xml, "<" + tag + ">", "</" + tag + ">");
-        if (values.length == 0) {
-            String[] t = getBetweens(xml, "<" + tag, "</" + tag + ">");
-            if (t.length == 0)
-                return t;
-            values = new String[t.length];
-            for (int i = 0; i < t.length; i++) {
-                values[i] = getSuffix(t[i], ">");
+        String[] values = getBetweens(xml, "<" + tag, "</" + tag + ">");
+        if (values.length > 0) {
+            for (int i = 0; i < values.length; i++) {
+                values[i] = getSuffix(values[i], ">");
             }
         }
         return values;
