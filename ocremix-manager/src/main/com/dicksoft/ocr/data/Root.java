@@ -31,6 +31,8 @@ public class Root implements Serializable {
     protected Set<Mixer> mixers = new OCRSet<Mixer>();// (Parser.parseSize(Mixer.listUrl()));
     protected Set<Song> songs = new OCRSet<Song>();// (Parser.parseSize(Song.listUrl()));
     protected Set<System> systems = new OCRSet<System>();// (Parser.parseSize(System.listUrl()));
+    protected Set<Publisher> publishers =
+            new OCRSet<Publisher>(Parser.parseSize(Publisher.listUrl()));
 
     /**
      * @return the composers
@@ -79,5 +81,12 @@ public class Root implements Serializable {
      */
     public Set<System> getSystems() {
         return this.systems;
+    }
+    
+    /**
+     * @return the publishers
+     */
+    public Set<Publisher> getPublishers() {
+        return this.publishers;
     }
 }
