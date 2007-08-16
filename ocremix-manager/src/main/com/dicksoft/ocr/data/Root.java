@@ -26,15 +26,11 @@ public class Root implements Serializable {
             new OCRSet<Composer>(Parser.parseSize(Composer.listUrl()));
     protected Set<Emulator> emulators =
             new OCRSet<Emulator>(Parser.parseSize(Emulator.listUrl()));
-    protected Set<Game> games =
-            new OCRSet<Game>(Parser.parseSize(Game.listUrl()));
-    protected Set<Mix> mixes = new OCRSet<Mix>(Parser.parseSize(Mix.listUrl()));
-    protected Set<Mixer> mixers =
-            new OCRSet<Mixer>(Parser.parseSize(Mixer.listUrl()));
-    protected Set<Song> songs =
-            new OCRSet<Song>(Parser.parseSize(Song.listUrl()));
-    protected Set<System> systems =
-            new OCRSet<System>(Parser.parseSize(System.listUrl()));
+    protected Set<Game> games = new OCRSet<Game>();// (Parser.parseSize(Game.listUrl()));
+    protected Set<Mix> mixes = new OCRSet<Mix>();// (Parser.parseSize(Mix.listUrl()));
+    protected Set<Mixer> mixers = new OCRSet<Mixer>();// (Parser.parseSize(Mixer.listUrl()));
+    protected Set<Song> songs = new OCRSet<Song>();// (Parser.parseSize(Song.listUrl()));
+    protected Set<System> systems = new OCRSet<System>();// (Parser.parseSize(System.listUrl()));
 
     /**
      * @return the composers
