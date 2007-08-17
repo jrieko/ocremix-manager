@@ -14,7 +14,7 @@ package com.dicksoft.ocr.data;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 /**
  * @author <a href="mailto:ryo.away@gmail.com">Richard Taylor</a>
@@ -37,11 +37,11 @@ public class Mix extends OCRElement implements Serializable {
     protected boolean inCollection;
     protected boolean ignored;
     protected Game game;
-    protected Set<Mixer> mixers = new OCRSet<Mixer>();
-    protected Set<Composer> composers = new OCRSet<Composer>();
+    protected OCRSet<Mixer> mixers = new OCRSet<Mixer>();
+    protected OCRSet<Composer> composers = new OCRSet<Composer>();
     protected Publisher copyright;
     protected System system;
-    protected Set<Song> songs = new OCRSet<Song>();
+    protected OCRSet<Song> songs = new OCRSet<Song>();
     protected ForumTopic forumTopic;
 
     /**
@@ -63,12 +63,12 @@ public class Mix extends OCRElement implements Serializable {
      * @param forumTopic
      * @throws IllegalArgumentException
      */
-    public Mix(int id, String name, Date postDate, String filename,
+    public Mix(Root root, int id, String name, Date postDate, String filename,
             int topicId, int judgeId, int lastfmId, byte[] md5Hash,
             int filesize, int length, int bitrate, String djpComment,
             String lyrics, boolean inCollection, boolean ignored,
             ForumTopic forumTopic) throws IllegalArgumentException {
-        super(id, name);
+        super(root, id, name);
         this.postDate = postDate;
         this.filename = filename;
         this.topicId = topicId;
@@ -94,5 +94,201 @@ public class Mix extends OCRElement implements Serializable {
         protected int numComments;
         protected int id;
         protected int lastPostId;
+    }
+
+    /**
+     * @return the composers
+     */
+    public List<Composer> getComposers() {
+        return this.composers.toList();
+    }
+
+    /**
+     * @param composers
+     *            the composers to set
+     */
+    public void addComposer(Composer composer) {
+        this.composers.add(this.root.composers.tryAdd(composer));
+    }
+
+    /**
+     * @return the copyright
+     */
+    public Publisher getCopyright() {
+        return this.copyright;
+    }
+
+    /**
+     * @param copyright
+     *            the copyright to set
+     */
+    public void setCopyright(Publisher copyright) {
+        this.copyright = this.root.publishers.tryAdd(copyright);
+    }
+
+    /**
+     * @return the game
+     */
+    public Game getGame() {
+        return this.game;
+    }
+
+    /**
+     * @param game
+     *            the game to set
+     */
+    public void setGame(Game game) {
+        this.game = this.root.games.tryAdd(game);
+    }
+
+    /**
+     * @return the inCollection
+     */
+    public boolean isInCollection() {
+        return this.inCollection;
+    }
+
+    /**
+     * @param inCollection
+     *            the inCollection to set
+     */
+    public void setInCollection(boolean inCollection) {
+        this.inCollection = inCollection;
+    }
+
+    /**
+     * @return the mixers
+     */
+    public List<Mixer> getMixers() {
+        return this.mixers.toList();
+    }
+
+    /**
+     * @param mixers
+     *            the mixers to set
+     */
+    public void addMixer(Mixer mixer) {
+        this.mixers.add(this.root.mixers.tryAdd(mixer));
+    }
+
+    /**
+     * @return the songs
+     */
+    public List<Song> getSongs() {
+        return this.songs.toList();
+    }
+
+    /**
+     * @param songs
+     *            the songs to set
+     */
+    public void addSong(Song song) {
+        this.songs.add(this.root.songs.tryAdd(song));
+    }
+
+    /**
+     * @return the system
+     */
+    public System getSystem() {
+        return this.system;
+    }
+
+    /**
+     * @param system
+     *            the system to set
+     */
+    public void setSystem(System system) {
+        this.system = this.root.systems.tryAdd(system);
+    }
+
+    /**
+     * @return the bitrate
+     */
+    public int getBitrate() {
+        return this.bitrate;
+    }
+
+    /**
+     * @return the djpComment
+     */
+    public String getDjpComment() {
+        return this.djpComment;
+    }
+
+    /**
+     * @return the filename
+     */
+    public String getFilename() {
+        return this.filename;
+    }
+
+    /**
+     * @return the filesize
+     */
+    public int getFilesize() {
+        return this.filesize;
+    }
+
+    /**
+     * @return the forumTopic
+     */
+    public ForumTopic getForumTopic() {
+        return this.forumTopic;
+    }
+
+    /**
+     * @return the ignored
+     */
+    public boolean isIgnored() {
+        return this.ignored;
+    }
+
+    /**
+     * @return the judgeId
+     */
+    public int getJudgeId() {
+        return this.judgeId;
+    }
+
+    /**
+     * @return the lastfmId
+     */
+    public int getLastfmId() {
+        return this.lastfmId;
+    }
+
+    /**
+     * @return the length
+     */
+    public int getLength() {
+        return this.length;
+    }
+
+    /**
+     * @return the lyrics
+     */
+    public String getLyrics() {
+        return this.lyrics;
+    }
+
+    /**
+     * @return the md5Hash
+     */
+    public byte[] getMd5Hash() {
+        return this.md5Hash;
+    }
+
+    /**
+     * @return the postDate
+     */
+    public Date getPostDate() {
+        return this.postDate;
+    }
+
+    /**
+     * @return the topicId
+     */
+    public int getTopicId() {
+        return this.topicId;
     }
 }

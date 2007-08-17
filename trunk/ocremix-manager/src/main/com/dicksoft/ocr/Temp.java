@@ -24,6 +24,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.PropertyConfigurator;
 
 import com.dicksoft.ocr.data.Emulator;
+import com.dicksoft.ocr.data.Root;
 import com.dicksoft.ocr.util.StringUtil;
 import com.dicksoft.ocr.xml.NotParseableException;
 
@@ -46,7 +47,7 @@ public class Temp {
      */
     public static void main(String[] args) throws NotParseableException {
         setupLog();
-        Set<Emulator> emus = Emulator.parseListing();
+        Set<Emulator> emus = Emulator.parseListing(new Root());
         for (Emulator emu : emus) {
             System.out.println(emu);
         }

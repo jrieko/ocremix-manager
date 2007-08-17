@@ -23,6 +23,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.dicksoft.ocr.util.HttpUtil;
 import com.dicksoft.ocr.util.StringUtil;
+import com.dicksoft.ocr.xml.NotParseableException;
 import com.dicksoft.ocr.xml.Parseable;
 import com.dicksoft.ocr.xml.Parser;
 
@@ -92,9 +93,10 @@ public class Emulator extends OCRElement implements Serializable, Parseable {
     protected Publisher copyright;
     protected Set<Platform> platforms = new OCRSet<Platform>();
 
-    public Emulator(int id, String name, String url, boolean bestBet,
-            Set<Platform> platforms) throws MalformedURLException {
-        super(id, name);
+    public Emulator(Root root, int id, String name, String url,
+            boolean bestBet, Set<Platform> platforms)
+            throws MalformedURLException {
+        super(root, id, name);
         if (url != null)
             this.url = new URL(url);
         this.bestBet = bestBet;
@@ -102,7 +104,7 @@ public class Emulator extends OCRElement implements Serializable, Parseable {
     }
 
     /**
-     * Parse the XML for an element. The detail pages for emulators are proken
+     * Parse the XML for an element. The detail pages for emulators are broken
      * for now, so this won't work. Use parseListing() until it's fixed.
      * 
      * @param xml
@@ -110,14 +112,15 @@ public class Emulator extends OCRElement implements Serializable, Parseable {
      * @return the element if a valid one is described in the XML, null
      *         otherwise
      */
-    public static Emulator parse(String xml) {
+    public static Emulator parse(Root root, String xml) {
         if (Boolean.parseBoolean(StringUtil.getElement(xml, NO_EXIST_TAG)))
             return null;
         String element = StringUtil.getElement(xml, TAG);
         try {
-            return new Emulator(Integer.parseInt(StringUtil.getElement(element,
-                    ID_TAG)), StringUtil.getElement(element, NAME_TAG),
-                    StringUtil.getElement(element, URL_TAG), Boolean
+            return new Emulator(root, Integer.parseInt(StringUtil.getElement(
+                    element, ID_TAG)),
+                    StringUtil.getElement(element, NAME_TAG), StringUtil
+                            .getElement(element, URL_TAG), Boolean
                             .parseBoolean(StringUtil.getElement(element,
                                     BEST_BET_TAG)), null);
         } catch (MalformedURLException e) {
@@ -127,7 +130,17 @@ public class Emulator extends OCRElement implements Serializable, Parseable {
         }
     }
 
-    public static Set<Emulator> parseListing() {
+    /**
+     * Temporary hack to accomodate the site's broken emulator detail pages.
+     * 
+     * @param root
+     *            the Root
+     * @return the parsed Emulators
+     * @throws NotParseableException
+     *             if a parsing error occurred
+     */
+    public static Set<Emulator> parseListing(Root root)
+            throws NotParseableException {
         int size = Parser.parseSize("http://ocremix.org/emulators/");
         LOG.debug("parseListing() size=" + size);
         OCRSet<Emulator> result = new OCRSet<Emulator>(size);
@@ -149,28 +162,26 @@ public class Emulator extends OCRElement implements Serializable, Parseable {
                 if (columns.length == 0)
                     continue;
                 if (columns[0].contains("<a href=\"/detailemulator.php")) {
-                    try {
-                        OCRSet<Platform> platforms = new OCRSet<Platform>(4);
-                        for (int j = 3; j < 7; j++) {
-                            if (columns[j] != null)
-                                platforms.add(Platform.valueOf(StringUtil
-                                        .getAttribute(columns[j], "img", "alt")
-                                        .toUpperCase()));
-                        }
-                        result.add(new Emulator(Integer.parseInt(StringUtil
-                                .getSuffix(StringUtil.getAttribute(columns[0],
-                                        "a", "href"), "emuid=")), StringUtil
-                                .getElement(columns[0], "a"), StringUtil
-                                .getAttribute(columns[2], "a", "href"),
-                                columns[1] == null, platforms));
-                    } catch (NumberFormatException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    } catch (MalformedURLException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
+                    OCRSet<Platform> platforms = new OCRSet<Platform>(4);
+                    for (int j = 3; j < 7; j++) {
+                        if (columns[j] != null)
+                            platforms.add(Platform.valueOf(StringUtil
+                                    .getAttribute(columns[j], "img", "alt")
+                                    .toUpperCase()));
                     }
-                    // TODO
+                    try {
+                        result.add(new Emulator(root, Integer
+                                .parseInt(StringUtil.getSuffix(StringUtil
+                                        .getAttribute(columns[0], "a", "href"),
+                                        "emuid=")), StringUtil.getElement(
+                                columns[0], "a"), StringUtil.getAttribute(
+                                columns[2], "a", "href"), columns[1] == null,
+                                platforms));
+                    } catch (NumberFormatException e) {
+                        throw new NotParseableException(e);
+                    } catch (MalformedURLException e) {
+                        throw new NotParseableException(e);
+                    }
                 }
             }
         }
@@ -220,6 +231,23 @@ public class Emulator extends OCRElement implements Serializable, Parseable {
      */
     public System getSystem() {
         return this.system;
+    }
+
+    /**
+     * @param system
+     *            the system to set
+     */
+    public void setSystem(System system) {
+        this.system = this.root.systems.tryAdd(system);
+        // TODO
+    }
+
+    /**
+     * @param copyright
+     *            the copyright to set
+     */
+    public void setCopyright(Publisher copyright) {
+        this.copyright = this.root.publishers.tryAdd(copyright);
     }
 
     /**

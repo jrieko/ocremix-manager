@@ -18,6 +18,7 @@ import java.io.Serializable;
  * @author <a href="mailto:ryo.away@gmail.com">Richard Taylor</a>
  */
 public abstract class OCRElement implements Serializable {
+    protected Root root;
     protected int id;
     protected String name;
 
@@ -29,10 +30,13 @@ public abstract class OCRElement implements Serializable {
      * @throws IllegalArgumentException
      *             if name is null or empty
      */
-    public OCRElement(int id, String name) throws IllegalArgumentException {
-        if (name == null || name.equals("")) {
+    public OCRElement(Root root, int id, String name)
+            throws IllegalArgumentException {
+        if (root == null)
+            throw new IllegalArgumentException("root must not be null");
+        if (name == null || name.equals(""))
             throw new IllegalArgumentException("name must not be null or empty");
-        }
+        this.root = root;
         this.id = id;
         this.name = name;
     }

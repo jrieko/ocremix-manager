@@ -14,7 +14,7 @@ package com.dicksoft.ocr.data;
 
 import java.io.Serializable;
 import java.net.URL;
-import java.util.Set;
+import java.util.List;
 
 /**
  * @author <a href="mailto:ryo.away@gmail.com">Richard Taylor</a>
@@ -51,10 +51,10 @@ public class System extends OCRElement implements Serializable {
     protected String screenshotFile;
     protected String iconFile;
     protected Publisher copyright;
-    protected Set<Emulator> emulators = new OCRSet<Emulator>();
-    protected Set<Mix> mixes = new OCRSet<Mix>();
-    protected Set<Song> songs = new OCRSet<Song>();
-    protected Set<Game> games = new OCRSet<Game>();
+    protected OCRSet<Emulator> emulators = new OCRSet<Emulator>();
+    protected OCRSet<Mix> mixes = new OCRSet<Mix>();
+    protected OCRSet<Song> songs = new OCRSet<Song>();
+    protected OCRSet<Game> games = new OCRSet<Game>();
     protected URL urlMoby;
     protected URL urlVGMusic;
     protected URL urlWiki;
@@ -71,10 +71,10 @@ public class System extends OCRElement implements Serializable {
      * @param urlWiki
      * @throws IllegalArgumentException
      */
-    public System(int id, String name, String urlName, Type type,
+    public System(Root root, int id, String name, String urlName, Type type,
             String screenshotFile, String iconFile, URL urlMoby,
             URL urlVGMusic, URL urlWiki) throws IllegalArgumentException {
-        super(id, name);
+        super(root, id, name);
         this.urlName = urlName;
         this.type = type;
         this.screenshotFile = screenshotFile;
@@ -82,6 +82,130 @@ public class System extends OCRElement implements Serializable {
         this.urlMoby = urlMoby;
         this.urlVGMusic = urlVGMusic;
         this.urlWiki = urlWiki;
+    }
+
+    /**
+     * @return the copyright
+     */
+    public Publisher getCopyright() {
+        return this.copyright;
+    }
+
+    /**
+     * @param copyright
+     *            the copyright to set
+     */
+    public void setCopyright(Publisher copyright) {
+        this.copyright = this.root.publishers.tryAdd(copyright);
+    }
+
+    /**
+     * @return the emulators
+     */
+    public List<Emulator> getEmulators() {
+        return this.emulators.toList();
+    }
+
+    /**
+     * @param emulators
+     *            the emulators to set
+     */
+    public void addEmulator(Emulator emulator) {
+        this.emulators.add(this.root.emulators.tryAdd(emulator));
+    }
+
+    /**
+     * @return the games
+     */
+    public List<Game> getGames() {
+        return this.games.toList();
+    }
+
+    /**
+     * @param games
+     *            the games to set
+     */
+    public void addGame(Game game) {
+        this.games.add(this.root.games.tryAdd(game));
+    }
+
+    /**
+     * @return the mixes
+     */
+    public List<Mix> getMixes() {
+        return this.mixes.toList();
+    }
+
+    /**
+     * @param mixes
+     *            the mixes to set
+     */
+    public void addMix(Mix mix) {
+        this.mixes.add(this.root.mixes.tryAdd(mix));
+    }
+
+    /**
+     * @return the songs
+     */
+    public List<Song> getSongs() {
+        return this.songs.toList();
+    }
+
+    /**
+     * @param songs
+     *            the songs to set
+     */
+    public void addSong(Song song) {
+        this.songs.add(this.root.songs.tryAdd(song));
+    }
+
+    /**
+     * @return the iconFile
+     */
+    public String getIconFile() {
+        return this.iconFile;
+    }
+
+    /**
+     * @return the screenshotFile
+     */
+    public String getScreenshotFile() {
+        return this.screenshotFile;
+    }
+
+    /**
+     * @return the type
+     */
+    public Type getType() {
+        return this.type;
+    }
+
+    /**
+     * @return the urlMoby
+     */
+    public URL getUrlMoby() {
+        return this.urlMoby;
+    }
+
+    /**
+     * @return the urlName
+     */
+    public String getUrlName() {
+        return this.urlName;
+    }
+
+    /**
+     * @return the urlVGMusic
+     */
+    public URL getUrlVGMusic() {
+        return this.urlVGMusic;
+    }
+
+    /**
+     * @return the urlWiki
+     */
+    public URL getUrlWiki() {
+        return this.urlWiki;
     }
 
 }
