@@ -14,7 +14,7 @@ package com.dicksoft.ocr.data;
 
 import java.io.Serializable;
 import java.net.URL;
-import java.util.Set;
+import java.util.List;
 
 /**
  * @author <a href="mailto:ryo.away@gmail.com">Richard Taylor</a>
@@ -30,7 +30,8 @@ public class Mixer extends OCRElement implements Serializable {
     protected URL urlBrainz;
     protected String email;
     protected int forumId;
-    protected Set<Mix> mixes = new OCRSet<Mix>();
+    protected OCRSet<Mix> mixes = new OCRSet<Mix>();
+
     /**
      * @param id
      * @param name
@@ -43,8 +44,10 @@ public class Mixer extends OCRElement implements Serializable {
      * @param forumId
      * @throws IllegalArgumentException
      */
-    public Mixer(int id, String name, String imageFile, String realName, String urlName, URL url, URL urlBrainz, String email, int forumId) throws IllegalArgumentException {
-        super(id, name);
+    public Mixer(Root root, int id, String name, String imageFile,
+            String realName, String urlName, URL url, URL urlBrainz,
+            String email, int forumId) throws IllegalArgumentException {
+        super(root, id, name);
         this.imageFile = imageFile;
         this.realName = realName;
         this.urlName = urlName;
@@ -52,5 +55,69 @@ public class Mixer extends OCRElement implements Serializable {
         this.urlBrainz = urlBrainz;
         this.email = email;
         this.forumId = forumId;
+    }
+
+    /**
+     * @return the mixes
+     */
+    public List<Mix> getMixes() {
+        return this.mixes.toList();
+    }
+
+    /**
+     * @param mixes
+     *            the mixes to set
+     */
+    public void addMix(Mix mix) {
+        this.mixes.add(this.root.mixes.tryAdd(mix));
+    }
+
+    /**
+     * @return the email
+     */
+    public String getEmail() {
+        return this.email;
+    }
+
+    /**
+     * @return the forumId
+     */
+    public int getForumId() {
+        return this.forumId;
+    }
+
+    /**
+     * @return the imageFile
+     */
+    public String getImageFile() {
+        return this.imageFile;
+    }
+
+    /**
+     * @return the realName
+     */
+    public String getRealName() {
+        return this.realName;
+    }
+
+    /**
+     * @return the url
+     */
+    public URL getUrl() {
+        return this.url;
+    }
+
+    /**
+     * @return the urlBrainz
+     */
+    public URL getUrlBrainz() {
+        return this.urlBrainz;
+    }
+
+    /**
+     * @return the urlName
+     */
+    public String getUrlName() {
+        return this.urlName;
     }
 }

@@ -25,7 +25,7 @@ public interface Parseable {
     // enforced as java interfaces don't allow static methods. The honor system
     // will have to do for now.
 
-    // public static <T extends OCRElement> T parse(String xml);
+    // public static <T extends OCRElement> T parse(Root root, String xml);
     // public static String listURL();
     // public static String elementUrl(int id);
 }

@@ -54,7 +54,7 @@ public class Parser {
     public static void parse(Root root) throws NotParseableException {
         parse(Composer.class, root.getComposers());
         // parse(Emulator.class, root.getEmulators());
-        root.getEmulators().addAll(Emulator.parseListing());
+        root.getEmulators().addAll(Emulator.parseListing(root));
         // parse(Game.class, root.getGames());
         // parse(Mix.class, root.getMixes());
         // parse(Mixer.class, root.getMixers());

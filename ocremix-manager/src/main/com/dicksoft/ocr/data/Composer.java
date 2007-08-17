@@ -15,12 +15,13 @@ package com.dicksoft.ocr.data;
 import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Set;
+import java.util.List;
 
 import com.dicksoft.ocr.util.StringUtil;
 import com.dicksoft.ocr.xml.Parseable;
 
 /**
+ * TODO set relationships
  * @author <a href="mailto:ryo.away@gmail.com">Richard Taylor</a>
  * @see http://ocremix.org/composers/
  * @see http://ocremix.org/composer/id/[id]/
@@ -36,14 +37,15 @@ public class Composer extends OCRElement implements Serializable, Parseable {
     public static final String URL_BRAINZ_TAG = "composerurl_brainz";
     public static final String URL_WIKI_TAG = "composerurl_wiki";
     private static final long serialVersionUID = 7766261829995228374L;
+    protected Root root;
     protected String imageFile;
     protected URL url;
     protected URL urlMoby;
     protected URL urlBrainz;
     protected URL urlWiki;
-    protected Set<Mix> mixes = new OCRSet<Mix>();
-    protected Set<Song> songs = new OCRSet<Song>();
-    protected Set<Game> games = new OCRSet<Game>();
+    protected OCRSet<Mix> mixes = new OCRSet<Mix>();
+    protected OCRSet<Song> songs = new OCRSet<Song>();
+    protected OCRSet<Game> games = new OCRSet<Game>();
 
     /**
      * @param id
@@ -65,10 +67,10 @@ public class Composer extends OCRElement implements Serializable, Parseable {
      * @throws IllegalArgumentException
      *             if name is null or empty
      */
-    public Composer(int id, String name, String imageFile, String url,
-            String urlMoby, String urlBrainz, String urlWiki)
+    public Composer(Root root, int id, String name, String imageFile,
+            String url, String urlMoby, String urlBrainz, String urlWiki)
             throws MalformedURLException {
-        super(id, name);
+        super(root, id, name);
         this.imageFile = imageFile;
         if (url != null)
             this.url = new URL(url);
@@ -81,10 +83,12 @@ public class Composer extends OCRElement implements Serializable, Parseable {
     }
 
     /**
+     * Note: changing the List this produces will not affect this Object
+     * 
      * @return the games
      */
-    public Set<Game> getGames() {
-        return this.games;
+    public List<Game> getGames() {
+        return this.games.toList();
     }
 
     /**
@@ -104,8 +108,8 @@ public class Composer extends OCRElement implements Serializable, Parseable {
     /**
      * @return the mixes
      */
-    public Set<Mix> getMixes() {
-        return this.mixes;
+    public List<Mix> getMixes() {
+        return this.mixes.toList();
     }
 
     /**
@@ -118,8 +122,8 @@ public class Composer extends OCRElement implements Serializable, Parseable {
     /**
      * @return the songs
      */
-    public Set<Song> getSongs() {
-        return this.songs;
+    public List<Song> getSongs() {
+        return this.songs.toList();
     }
 
     /**
@@ -150,6 +154,18 @@ public class Composer extends OCRElement implements Serializable, Parseable {
         return this.urlWiki;
     }
 
+    public void addMix(Mix mix) {
+        this.mixes.add(this.root.mixes.tryAdd(mix));
+    }
+
+    public void addSong(Song song) {
+        this.songs.add(this.root.songs.tryAdd(song));
+    }
+
+    public void addGame(Game game) {
+        this.games.add(this.root.games.tryAdd(game));
+    }
+
     /**
      * Parse the XML for an element
      * 
@@ -158,15 +174,16 @@ public class Composer extends OCRElement implements Serializable, Parseable {
      * @return the element if a valid one is described in the XML, null
      *         otherwise
      */
-    public static Composer parse(String xml) {
+    public static Composer parse(Root root, String xml) {
         if (Boolean.parseBoolean(StringUtil.getElement(xml, NO_EXIST_TAG)))
             return null;
         String element = StringUtil.getElement(xml, TAG);
         try {
-            return new Composer(Integer.parseInt(StringUtil.getElement(
-                    element, ID_TAG)), StringUtil.getElement(element,
-                    NAME_TAG), StringUtil.getElement(element, IMAGE_FILE_TAG),
-                    StringUtil.getElement(element, URL_TAG), StringUtil
+            return new Composer(root, Integer.parseInt(StringUtil.getElement(
+                    element, ID_TAG)),
+                    StringUtil.getElement(element, NAME_TAG), StringUtil
+                            .getElement(element, IMAGE_FILE_TAG), StringUtil
+                            .getElement(element, URL_TAG), StringUtil
                             .getElement(element, URL_MOBY_TAG), StringUtil
                             .getElement(element, URL_BRAINZ_TAG), StringUtil
                             .getElement(element, URL_WIKI_TAG));

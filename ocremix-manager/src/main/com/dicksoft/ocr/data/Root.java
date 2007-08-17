@@ -22,16 +22,16 @@ import com.dicksoft.ocr.xml.Parser;
  */
 public class Root implements Serializable {
     private static final long serialVersionUID = -4755428645861211749L;
-    protected Set<Composer> composers =
+    protected OCRSet<Composer> composers =
             new OCRSet<Composer>(Parser.parseSize(Composer.listUrl()));
-    protected Set<Emulator> emulators =
+    protected OCRSet<Emulator> emulators =
             new OCRSet<Emulator>(Parser.parseSize(Emulator.listUrl()));
-    protected Set<Game> games = new OCRSet<Game>();// (Parser.parseSize(Game.listUrl()));
-    protected Set<Mix> mixes = new OCRSet<Mix>();// (Parser.parseSize(Mix.listUrl()));
-    protected Set<Mixer> mixers = new OCRSet<Mixer>();// (Parser.parseSize(Mixer.listUrl()));
-    protected Set<Song> songs = new OCRSet<Song>();// (Parser.parseSize(Song.listUrl()));
-    protected Set<System> systems = new OCRSet<System>();// (Parser.parseSize(System.listUrl()));
-    protected Set<Publisher> publishers =
+    protected OCRSet<Game> games = new OCRSet<Game>();// (Parser.parseSize(Game.listUrl()));
+    protected OCRSet<Mix> mixes = new OCRSet<Mix>();// (Parser.parseSize(Mix.listUrl()));
+    protected OCRSet<Mixer> mixers = new OCRSet<Mixer>();// (Parser.parseSize(Mixer.listUrl()));
+    protected OCRSet<Song> songs = new OCRSet<Song>();// (Parser.parseSize(Song.listUrl()));
+    protected OCRSet<System> systems = new OCRSet<System>();// (Parser.parseSize(System.listUrl()));
+    protected OCRSet<Publisher> publishers =
             new OCRSet<Publisher>(Parser.parseSize(Publisher.listUrl()));
 
     /**
@@ -82,7 +82,7 @@ public class Root implements Serializable {
     public Set<System> getSystems() {
         return this.systems;
     }
-    
+
     /**
      * @return the publishers
      */
