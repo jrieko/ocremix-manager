@@ -36,6 +36,7 @@ public class Temp {
     // ";
     // private static final int TOTAL_GAME_MAX_DIGITS = 30;
     // private static final int NUM_GAMES_PER_PAGE = 100;
+    @SuppressWarnings("unused")
     private static Log LOG;
     private static final String LOG4JPROPERTIES =
             "src" + StringUtil.FS + "conf" + StringUtil.FS + "log4j.properties";

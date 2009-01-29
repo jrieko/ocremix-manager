@@ -263,7 +263,7 @@ public class OCRSet<E> extends AbstractSet<E> implements Set<E>, Cloneable,
         s.writeInt(this.map.size());
 
         // Write out all elements in the proper order.
-        for (Iterator i = this.map.values().iterator(); i.hasNext();)
+        for (Iterator<E> i = this.map.values().iterator(); i.hasNext();)
             s.writeObject(i.next());
     }
 
