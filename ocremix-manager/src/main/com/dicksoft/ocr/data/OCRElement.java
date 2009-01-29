@@ -18,6 +18,7 @@ import java.io.Serializable;
  * @author <a href="mailto:ryo.away@gmail.com">Richard Taylor</a>
  */
 public abstract class OCRElement implements Serializable {
+    private static final long serialVersionUID = -2452307344001632613L;
     protected Root root;
     protected int id;
     protected String name;
