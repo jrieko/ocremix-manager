@@ -1,0 +1,1 @@
+Just subscribe to a game and keep your collection updated with the latest remixes of that game from [ocremix.org](http://ocremix.org).
